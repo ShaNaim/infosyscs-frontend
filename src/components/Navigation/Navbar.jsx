@@ -12,6 +12,7 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import DataUsageIcon from "@mui/icons-material/DataUsage";
+import Link from "next/link";
 const pages = ["About", "Pricing"];
 const settings = ["Profile", "Logout"];
 const appName = "InfoSysCs";
@@ -40,23 +41,24 @@ function NavBar() {
 			<Container maxWidth="xl">
 				<Toolbar disableGutters>
 					<DataUsageIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
-					<Typography
-						variant="h6"
-						noWrap
-						component="a"
-						href="/"
-						sx={{
-							mr: 2,
-							display: { xs: "none", md: "flex" },
-							fontFamily: "monospace",
-							fontWeight: 700,
-							letterSpacing: ".3rem",
-							color: "inherit",
-							textDecoration: "none",
-						}}
-					>
-						{appName}
-					</Typography>
+					<Link href="/">
+						<Typography
+							variant="h6"
+							noWrap
+							component="span"
+							sx={{
+								mr: 2,
+								display: { xs: "none", md: "flex" },
+								fontFamily: "monospace",
+								fontWeight: 700,
+								letterSpacing: ".3rem",
+								color: "inherit",
+								textDecoration: "none",
+							}}
+						>
+							{appName}
+						</Typography>
+					</Link>
 
 					<Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
 						<IconButton
@@ -97,24 +99,25 @@ function NavBar() {
 						</Menu>
 					</Box>
 					<DataUsageIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
-					<Typography
-						variant="h5"
-						noWrap
-						component="a"
-						href=""
-						sx={{
-							mr: 2,
-							display: { xs: "flex", md: "none" },
-							flexGrow: 1,
-							fontFamily: "monospace",
-							fontWeight: 700,
-							letterSpacing: ".3rem",
-							color: "inherit",
-							textDecoration: "none",
-						}}
-					>
-						{appName}
-					</Typography>
+					<Link href="/">
+						<Typography
+							variant="h5"
+							noWrap
+							component="span"
+							sx={{
+								mr: 2,
+								display: { xs: "flex", md: "none" },
+								flexGrow: 1,
+								fontFamily: "monospace",
+								fontWeight: 700,
+								letterSpacing: ".3rem",
+								color: "inherit",
+								textDecoration: "none",
+							}}
+						>
+							{appName}
+						</Typography>
+					</Link>
 					<Box sx={{ flexGrow: 2 }} />
 					<Box sx={{ flexGrow: 0, mr: 3, display: { xs: "none", md: "flex" } }}>
 						{pages.map((page) => (

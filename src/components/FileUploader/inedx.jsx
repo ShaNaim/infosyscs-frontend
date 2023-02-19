@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import axios from "axios";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
-
+import { makeid } from "@/utils";
 import AuthModal from "../Auth/AuthModal";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import DataDisplay, { TestReport } from "../Report/DataDisplay";
-
+import { setCookie } from "cookies-next";
 export default function FileUpload() {
 	const [file, setFile] = useState(null);
 	const [text, setText] = useState("");
@@ -15,7 +15,6 @@ export default function FileUpload() {
 	const [loading, setLoading] = useState(false);
 	const [openModal, setOpenModal] = useState(false);
 	const [payment, setPayment] = useState(false);
-
 	const handleFileChange = (event) => {
 		setFile(event.target.files);
 	};
@@ -26,7 +25,8 @@ export default function FileUpload() {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-		// return handleClick();
+		setCookie("userFileId", makeid());
+		return handleClick();
 		const formData = new FormData();
 		for (let i = 0; i < file.length; i++) {
 			formData.append("files", file[i]);
@@ -38,6 +38,7 @@ export default function FileUpload() {
 				"http://localhost:3050/api/v1/files/single-upload",
 				formData,
 				{
+					withCredentials: true,
 					headers: {
 						"Content-Type": "multipart/form-data",
 					},
@@ -46,8 +47,8 @@ export default function FileUpload() {
 			console.log(response.data);
 			setLoading(false);
 			setOpenModal(true);
-			setText(response.data.data);
-			setReport(response.data.data);
+			// setText(response.data.data);
+			// setReport(response.data.data);
 		} catch (error) {
 			console.error(error);
 			setLoading(false);
@@ -96,7 +97,7 @@ export default function FileUpload() {
 							<div>
 								{/* <h5> Tottal Token Used : {report.tokenUsage} </h5>
 								<h5> Computed Cost : {(report.tokenUsage / 1000) * 0.02} USD</h5> */}
-								<DataDisplay reportList={report} />
+								{/* <DataDisplay reportList={report} /> */}
 								{/* <TestReport reportText={text} /> */}
 							</div>
 						)}

@@ -1,5 +1,6 @@
 import styles from "@/styles/Auth.module.css";
 import React from "react";
+import Link from "next/link";
 import BasicModal from "../Modal";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -7,10 +8,24 @@ import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Register from "./Register";
+import { handleGoogleLogin } from "../../api/auth";
+import Image from "next/image";
 export default function AuthModal({ setOpen, open, setPayment }) {
+	const google = () => {
+		window.open("http://localhost:3050/api/v1/auth/google", "_self");
+	};
+
+	const github = () => {
+		window.open("http://localhost:5000/auth/github", "_self");
+	};
+
+	const facebook = () => {
+		window.open("http://localhost:5000/auth/facebook", "_self");
+	};
 	const handleClose = () => {
-		setPayment(true);
-		setOpen(false);
+		handleGoogleLogin();
+		// setPayment(true);
+		// setOpen(false);
 	};
 	return (
 		<>
@@ -41,6 +56,7 @@ export default function AuthModal({ setOpen, open, setPayment }) {
 								<span>OR</span>
 							</div>
 						</Stack>
+						{/* <Link href="/api/login" passHref> */}
 						<Button
 							sx={{
 								width: { xs: "80%", md: "40%", lg: "50%" },
@@ -50,10 +66,18 @@ export default function AuthModal({ setOpen, open, setPayment }) {
 							}}
 							variant="contained"
 							color="success"
-							onClick={handleClose}
+							onClick={google}
 						>
+							<Image
+								src="/google.png"
+								alt="Picture of the author"
+								width={20}
+								height={20}
+								style={{ marginRight: "10px" }}
+							/>
 							Sign In With Google
 						</Button>
+						{/* </Link> */}
 					</Stack>
 				</Box>
 			</BasicModal>
