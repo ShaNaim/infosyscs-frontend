@@ -68,7 +68,7 @@ export default function FileUpload() {
 				setErrorMessage("Something Went Wrong , Please Try Again");
 			}
 			setLoading(false);
-			setText("");
+			setPayment(false);
 		}
 	};
 
