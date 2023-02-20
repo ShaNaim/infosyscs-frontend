@@ -1,3 +1,4 @@
+import checkAndFormateFiles from "./file.utils";
 function makeid(length = 8) {
 	let result = "";
 	const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -12,4 +13,5 @@ function makeid(length = 8) {
 
 module.exports = {
 	makeid,
+	checkAndFormateFiles,
 };

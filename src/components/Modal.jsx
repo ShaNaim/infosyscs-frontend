@@ -13,12 +13,12 @@ const style = {
 	boxShadow: 24,
 };
 
-export default function BasicModal({ handleClose, open, children }) {
+export default function BasicModal({ onClose, open, children }) {
 	return (
 		<div>
 			<Modal
 				open={open}
-				onClose={handleClose}
+				onClose={onClose}
 				aria-labelledby="modal-modal-title"
 				aria-describedby="modal-modal-description"
 			>

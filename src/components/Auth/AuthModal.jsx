@@ -23,9 +23,9 @@ export default function AuthModal({ setOpen, open, setPayment }) {
 		window.open("http://localhost:5000/auth/facebook", "_self");
 	};
 	const handleClose = () => {
-		handleGoogleLogin();
-		// setPayment(true);
-		// setOpen(false);
+		// handleGoogleLogin();
+		setPayment(true);
+		setOpen(false);
 	};
 	return (
 		<>
