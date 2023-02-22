@@ -1,25 +1,26 @@
 import React, { useState } from "react";
-import axios from "axios";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
-import { makeid, checkAndFormateFiles } from "@/utils";
-import { uploadFileForProcessing } from "../../api/upload";
+import { checkAndFormateFiles } from "@/utils";
+import { handleRequestError } from "@/api/auth";
+import { uploadFileForProcessing } from "@/api/upload";
 import AuthModal from "../Auth/AuthModal";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import NotifyAlert from "../UI/NotifyAlert";
 import DataDisplay, { TestReport } from "../Report/DataDisplay";
 import { setCookie } from "cookies-next";
+import ReportCompletePromt from "./ReportCompletePromt";
 import BasicSelect from "../UI/BasicSelect";
 export default function FileUpload() {
 	const [file, setFile] = useState(null);
-	const [text, setText] = useState("");
+	const [costCalculation, setCostCalculation] = useState("");
 	const [report, setReport] = useState(null);
 	const [hasError, setHasError] = useState(false);
 	const [errorMessage, setErrorMessage] = useState("");
 	const [loading, setLoading] = useState(false);
 	const [openModal, setOpenModal] = useState(false);
-	const [payment, setPayment] = useState(false);
+	const [payment, setPayment] = useState(true);
 	const [type, setType] = useState("");
 	const fileTypes = [
 		{
@@ -39,30 +40,32 @@ export default function FileUpload() {
 		setOpenModal(true);
 	};
 
+	const setData = (result) => {
+		setReport(result.detail);
+		setCostCalculation({ token: result.token, cost: result.cost });
+	};
+
 	const handleSubmit = async (event) => {
 		try {
 			event.preventDefault();
-			setCookie("userFileId", makeid());
+			return handleClick();
 			const formData = checkAndFormateFiles(file, type);
-			console.log(formData);
-			// return handleClick();
 			setLoading(true);
-			setText("");
-
 			const response = await uploadFileForProcessing(formData, type);
-			console.log(response.data);
+			console.log(response.data.data);
 			setLoading(false);
 			setOpenModal(true);
-			setText(response.data.data);
-			setReport(response.data.data);
+			setData(response.data.data);
+
+			// setReport(response.data.data.detail);
+			// setCostCalculation({ token: response.data.data.token, cost: response.data.data.cost });
 		} catch (error) {
 			if (error.fileError) {
 				setHasError(true);
 				setErrorMessage(error.message);
-			}
-			if (error?.response?.data?.errors) {
+			} else if (error?.response?.data?.errors) {
 				setHasError(true);
-				setErrorMessage(error?.response?.data?.errors.description);
+				setErrorMessage(handleRequestError(error.response.data));
 			} else {
 				setHasError(true);
 				setErrorMessage("Something Went Wrong , Please Try Again");
@@ -123,16 +126,17 @@ export default function FileUpload() {
 				</form>
 			</Box>
 			<Box sx={{ p: 3 }}>
-				{loading && !text ? (
+				{loading ? (
 					<CircularProgress />
 				) : (
 					<>
 						{payment ? (
 							<div>
-								{/* <h5> Tottal Token Used : {report.tokenUsage} </h5>
-								<h5> Computed Cost : {(report.tokenUsage / 1000) * 0.02} USD</h5> */}
-								<DataDisplay reportList={report} />
+								{/* <h5> Tottal Token Used : {costCalculation.token} </h5>
+								<h5> Computed Cost : {costCalculation.cost} USD</h5> */}
+								{/* <DataDisplay reportList={report} /> */}
 								{/* <TestReport reportText={text} /> */}
+								<ReportCompletePromt />
 							</div>
 						) : (
 							<></>

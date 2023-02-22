@@ -6,8 +6,8 @@ export default function DataDisplay({ reportList }) {
 			{reportList.map((report, index) => {
 				return (
 					<div key={index}>
-						<h4> {report.thematicWords} </h4>
-						<p>{report.report}</p>
+						<h4> {report.heading} </h4>
+						<p>{report.details}</p>
 					</div>
 				);
 			})}

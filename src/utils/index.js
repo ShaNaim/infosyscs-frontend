@@ -11,7 +11,17 @@ function makeid(length = 8) {
 	return result;
 }
 
+function ValidateEmail(input) {
+	const validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+	if (input.match(validRegex)) {
+		return true;
+	}
+	return false;
+}
+
 module.exports = {
 	makeid,
 	checkAndFormateFiles,
+	ValidateEmail,
 };
