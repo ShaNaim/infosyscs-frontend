@@ -3,7 +3,10 @@ import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import DownloadIcon from "@mui/icons-material/Download";
 import Typography from "@mui/material/Typography";
+import { useRouter } from "next/router";
+
 export default function ReportCompletePromt({ reportInfo }) {
+	const router = useRouter();
 	return (
 		<Stack
 			direction="column"
@@ -28,6 +31,7 @@ export default function ReportCompletePromt({ reportInfo }) {
 				sx={{ width: "180px", height: "50px" }}
 				variant="contained"
 				endIcon={<DownloadIcon />}
+				onClick={() => router.push("/dashboard")}
 			>
 				Download
 			</Button>

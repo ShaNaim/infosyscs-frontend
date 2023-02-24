@@ -1,9 +1,26 @@
 import "@/styles/globals.css";
 import Layout from "@/components/Navigation";
-export default function App({ Component, pageProps }) {
+import Cookies from "universal-cookie";
+import { wrapper } from "../store/store";
+import { PersistGate } from "redux-persist/integration/react";
+import { useStore } from "react-redux";
+import CircularProgress from "@mui/material/CircularProgress";
+function App({ Component, pageProps }) {
+	const store = useStore();
 	return (
-		<Layout>
-			<Component {...pageProps} />
-		</Layout>
+		<PersistGate
+			persistor={store.__persistor}
+			loading={
+				<div>
+					<CircularProgress />
+				</div>
+			}
+		>
+			<Layout>
+				<Component {...pageProps} />
+			</Layout>
+		</PersistGate>
 	);
 }
+
+export default wrapper.withRedux(App);

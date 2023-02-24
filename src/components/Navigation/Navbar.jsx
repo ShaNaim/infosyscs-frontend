@@ -7,33 +7,28 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import DataUsageIcon from "@mui/icons-material/DataUsage";
 import Link from "next/link";
+import Profile from "./Profile";
+import { useRouter } from "next/router";
+import { getCookie, getCookies, hasCookie, deleteCookie } from "cookies-next";
+
 const pages = ["About", "Pricing"];
-const settings = ["Profile", "Logout"];
+const settings = ["Dashboard", "Logout"];
 const appName = "InfoSysCs";
 
-function NavBar() {
+function NavBar({ isLogedUser }) {
 	const [anchorElNav, setAnchorElNav] = React.useState(null);
-	const [anchorElUser, setAnchorElUser] = React.useState(null);
+	const router = useRouter();
 
 	const handleOpenNavMenu = (event) => {
 		setAnchorElNav(event.currentTarget);
 	};
-	const handleOpenUserMenu = (event) => {
-		setAnchorElUser(event.currentTarget);
-	};
 
 	const handleCloseNavMenu = () => {
 		setAnchorElNav(null);
-	};
-
-	const handleCloseUserMenu = () => {
-		setAnchorElUser(null);
 	};
 
 	return (
@@ -59,7 +54,6 @@ function NavBar() {
 							{appName}
 						</Typography>
 					</Link>
-
 					<Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
 						<IconButton
 							size="large"
@@ -132,36 +126,24 @@ function NavBar() {
 							</Button>
 						))}
 					</Box>
-
-					<Box sx={{ flexGrow: 0 }}>
-						<Tooltip title="Open settings">
-							<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-								<Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-							</IconButton>
-						</Tooltip>
-						<Menu
-							sx={{ mt: "45px" }}
-							id="menu-appbar"
-							anchorEl={anchorElUser}
-							anchorOrigin={{
-								vertical: "top",
-								horizontal: "right",
+					{isLogedUser ? (
+						<Profile settings={settings} />
+					) : (
+						<Button
+							variant="outlined"
+							onClick={() => {
+								return router.push("/login");
 							}}
-							keepMounted
-							transformOrigin={{
-								vertical: "top",
-								horizontal: "right",
-							}}
-							open={Boolean(anchorElUser)}
-							onClose={handleCloseUserMenu}
+							color="secondary"
 						>
-							{settings.map((setting) => (
-								<MenuItem key={setting} onClick={handleCloseUserMenu}>
-									<Typography textAlign="center">{setting}</Typography>
-								</MenuItem>
-							))}
-						</Menu>
-					</Box>
+							<Typography
+								sx={{ fontFamily: "monospace", fontWeight: 700, color: "white" }}
+								textAlign="center"
+							>
+								SIGNUP
+							</Typography>
+						</Button>
+					)}
 				</Toolbar>
 			</Container>
 		</AppBar>

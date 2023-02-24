@@ -8,11 +8,10 @@ import Authenticate from "./Authenticate";
 import { handleUserRegister, handleUserLogin, handleRequestError } from "@/api/auth";
 import Image from "next/image";
 import NotifyAlert from "../UI/NotifyAlert";
-import { redirect } from "next/navigation";
 import { useRouter } from "next/router";
-export default function Auth() {
+export default function Auth({ login = false, isPage = false }) {
 	const router = useRouter();
-	const [isLogin, setIsLogin] = React.useState(false);
+	const [isLogin, setIsLogin] = React.useState(login);
 	const [hasError, setHasError] = React.useState(false);
 	const [errorMessage, setErrorMessage] = React.useState(false);
 	const google = () => {
@@ -22,15 +21,13 @@ export default function Auth() {
 		try {
 			if (isLogin) {
 				const response = await handleUserLogin(user);
-				console.log("RESPONE :", response);
 				router.push("/dashboard");
 			} else {
 				const response = await handleUserRegister({
 					...user,
-					name: user.email,
+					name: "",
 					passwordConfirmation: user.password,
 				});
-				console.log("RESPONE :", response);
 				router.push("/dashboard");
 			}
 		} catch (error) {
@@ -38,6 +35,13 @@ export default function Auth() {
 			setErrorMessage(handleRequestError(error.response.data));
 			setHasError(true);
 		}
+	};
+
+	const handleRouteClick = () => {
+		if (isPage) {
+			return router.push(isLogin ? "/register" : "/login");
+		}
+		return setIsLogin((prev) => !prev);
 	};
 	return (
 		<Box
@@ -59,13 +63,25 @@ export default function Auth() {
 					sx={{ width: "100%" }}
 				>
 					<Authenticate handleSubmit={handleSubmit} isLogin={isLogin} />
-					<Typography id="modal-modal-title" variant="caption" component="span">
+					<Typography
+						sx={{ fontFamily: "monospace", fontWeight: 700 }}
+						id="modal-modal-title"
+						variant="caption"
+						component="span"
+					>
 						{isLogin ? "Don't Have an Account ?" : "Already Have an Account ?"}
 						<Typography
-							sx={{ color: "#14a0d8", "&:hover": { cursor: "pointer" }, fontSize: "14px", ml: 1 }}
+							sx={{
+								color: "#14a0d8",
+								"&:hover": { cursor: "pointer" },
+								fontSize: "14px",
+								ml: 1,
+								fontFamily: "monospace",
+								fontWeight: 300,
+							}}
 							variant="caption"
 							component="a"
-							onClick={() => setIsLogin((prev) => !prev)}
+							onClick={handleRouteClick}
 						>
 							{isLogin ? "Register" : "Login"}
 						</Typography>
@@ -82,6 +98,8 @@ export default function Auth() {
 						height: "56px",
 						mb: "12px",
 						backgroundColor: "#076d29df",
+						fontFamily: "monospace",
+						fontWeight: 400,
 					}}
 					variant="contained"
 					color="success"

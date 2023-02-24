@@ -8,57 +8,45 @@ import AuthModal from "../Auth/AuthModal";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import NotifyAlert from "../UI/NotifyAlert";
-import DataDisplay, { TestReport } from "../Report/DataDisplay";
-import { setCookie } from "cookies-next";
 import ReportCompletePromt from "./ReportCompletePromt";
 import BasicSelect from "../UI/BasicSelect";
+import { selectAuthState } from "@/store/authSlice";
+import { useSelector } from "react-redux";
 export default function FileUpload() {
+	const authState = useSelector(selectAuthState);
 	const [file, setFile] = useState(null);
-	const [costCalculation, setCostCalculation] = useState("");
-	const [report, setReport] = useState(null);
 	const [hasError, setHasError] = useState(false);
 	const [errorMessage, setErrorMessage] = useState("");
 	const [loading, setLoading] = useState(false);
 	const [openModal, setOpenModal] = useState(false);
-	const [payment, setPayment] = useState(true);
+	const [showDownloadLink, setShowDownloadLink] = useState(false);
 	const [type, setType] = useState("");
 	const fileTypes = [
 		{
 			value: "pdf",
-			name: "FGD",
+			name: "PDF",
 		},
 		{
 			value: "docx",
-			name: "KLL",
+			name: "DOCX",
 		},
 	];
 	const handleFileChange = (event) => {
 		setFile(event.target.files);
 	};
 
-	const handleClick = async () => {
-		setOpenModal(true);
-	};
-
-	const setData = (result) => {
-		setReport(result.detail);
-		setCostCalculation({ token: result.token, cost: result.cost });
-	};
-
 	const handleSubmit = async (event) => {
 		try {
 			event.preventDefault();
-			return handleClick();
 			const formData = checkAndFormateFiles(file, type);
 			setLoading(true);
 			const response = await uploadFileForProcessing(formData, type);
-			console.log(response.data.data);
-			setLoading(false);
-			setOpenModal(true);
-			setData(response.data.data);
 
-			// setReport(response.data.data.detail);
-			// setCostCalculation({ token: response.data.data.token, cost: response.data.data.cost });
+			setLoading(false);
+			if (!authState.isLogedUser) {
+				setOpenModal(true);
+			}
+			setShowDownloadLink(true);
 		} catch (error) {
 			if (error.fileError) {
 				setHasError(true);
@@ -71,7 +59,6 @@ export default function FileUpload() {
 				setErrorMessage("Something Went Wrong , Please Try Again");
 			}
 			setLoading(false);
-			setPayment(false);
 		}
 	};
 
@@ -121,7 +108,7 @@ export default function FileUpload() {
 						>
 							Upload
 						</Button>
-						<AuthModal setOpen={setOpenModal} open={openModal} setPayment={setPayment} />
+						<AuthModal setOpen={setOpenModal} open={openModal} />
 					</Stack>
 				</form>
 			</Box>
@@ -130,12 +117,8 @@ export default function FileUpload() {
 					<CircularProgress />
 				) : (
 					<>
-						{payment ? (
+						{showDownloadLink ? (
 							<div>
-								{/* <h5> Tottal Token Used : {costCalculation.token} </h5>
-								<h5> Computed Cost : {costCalculation.cost} USD</h5> */}
-								{/* <DataDisplay reportList={report} /> */}
-								{/* <TestReport reportText={text} /> */}
 								<ReportCompletePromt />
 							</div>
 						) : (

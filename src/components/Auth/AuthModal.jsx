@@ -10,9 +10,8 @@ import Box from "@mui/material/Box";
 import Register from "./Authenticate";
 import Image from "next/image";
 import Auth from "./Auth";
-export default function AuthModal({ setOpen, open, setPayment }) {
+export default function AuthModal({ setOpen, open }) {
 	const handleClose = () => {
-		setPayment(true);
 		setOpen(false);
 	};
 	return (

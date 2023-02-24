@@ -25,7 +25,12 @@ export default function Authenticate({ isLogin = false, handleSubmit }) {
 
 	return (
 		<>
-			<Typography id="modal-modal-title" variant="h6" component="h2">
+			<Typography
+				id="modal-modal-title"
+				variant="h6"
+				component="h2"
+				sx={{ fontFamily: "monospace", fontWeight: 700 }}
+			>
 				{isLogin ? "Welcome Back" : "Create Your Account"}
 			</Typography>
 			{isEmail ? (
