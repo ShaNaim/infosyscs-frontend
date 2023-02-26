@@ -4,12 +4,16 @@ import Box from "@mui/material/Box";
 import { boxSxObject, inputSxObject } from "./styles";
 import FunctionButton from "./FunctionButton";
 import { ValidateEmail } from "@/utils";
-export default function EmailInput({ handleClick, email, setEmail }) {
+
+export default function EmailInput({ handleClick, isLogin, emailValue, nameValue }) {
+	const [email, setEmail] = React.useState(emailValue ? emailValue : "");
+	const [name, setName] = React.useState(nameValue ? nameValue : "");
 	const [emailError, setEmailError] = React.useState(false);
 
 	const handleEmail = () => {
 		if (ValidateEmail(email)) {
-			handleClick();
+			if (isLogin) return handleClick(email);
+			return handleClick(email, name);
 		} else {
 			setEmailError(true);
 		}
@@ -24,12 +28,28 @@ export default function EmailInput({ handleClick, email, setEmail }) {
 					sx={inputSxObject}
 					type="email"
 					id="email-input"
-					label="Email"
+					label="Email*"
 					variant="outlined"
 					helperText={emailError && "Please Provide a Valid Email"}
 				/>
 
-				<FunctionButton handleClick={handleEmail}> Continue </FunctionButton>
+				{!isLogin ? (
+					<TextField
+						value={name}
+						onChange={(e) => setName(e.target.value)}
+						sx={inputSxObject}
+						type="text"
+						id="name-input"
+						label="Name"
+						variant="outlined"
+					/>
+				) : (
+					<></>
+				)}
+
+				<FunctionButton isLogin={isLogin} handleClick={handleEmail}>
+					Continue
+				</FunctionButton>
 			</Box>
 		</>
 	);

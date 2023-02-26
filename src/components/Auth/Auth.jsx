@@ -17,11 +17,13 @@ export default function Auth({ login = false, isPage = false }) {
 	const google = () => {
 		window.open("http://localhost:3050/api/v1/auth/google", "_self");
 	};
+
 	const handleSubmit = async (user) => {
 		try {
 			if (isLogin) {
 				const response = await handleUserLogin(user);
 				router.push("/dashboard");
+				// console.log({ user });
 			} else {
 				const response = await handleUserRegister({
 					...user,
@@ -29,6 +31,7 @@ export default function Auth({ login = false, isPage = false }) {
 					passwordConfirmation: user.password,
 				});
 				router.push("/dashboard");
+				// console.log({ user });
 			}
 		} catch (error) {
 			console.log(error);
@@ -51,7 +54,9 @@ export default function Auth({ login = false, isPage = false }) {
 				backgroundColor: "#fff",
 				px: { xs: 2, md: 4, lg: 8 },
 				py: 4,
+				marginTop: "10px",
 				borderRadius: "18px",
+				boxShadow: `10px 10px 16px -1px ${isLogin ? "#118aa044" : "#0f833244"}`,
 			}}
 		>
 			<Stack direction="column" justifyContent="space-between" alignItems="center" spacing={1}>
@@ -97,12 +102,12 @@ export default function Auth({ login = false, isPage = false }) {
 						width: { xs: "80%", md: "40%", lg: "50%" },
 						height: "56px",
 						mb: "12px",
-						backgroundColor: "#076d29df",
+						backgroundColor: isLogin ? "#32b8cfdd" : "#219146df",
 						fontFamily: "monospace",
 						fontWeight: 400,
 					}}
 					variant="contained"
-					color="success"
+					color={isLogin ? "primary" : "success"}
 					onClick={google}
 				>
 					<Image
@@ -112,7 +117,7 @@ export default function Auth({ login = false, isPage = false }) {
 						height={20}
 						style={{ marginRight: "10px" }}
 					/>
-					Sign In With Google
+					Sign {isLogin ? "In" : "Up"} With Google
 				</Button>
 				{/* </Link> */}
 			</Stack>

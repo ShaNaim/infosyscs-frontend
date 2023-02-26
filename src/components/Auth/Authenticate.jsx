@@ -3,6 +3,8 @@ import Typography from "@mui/material/Typography";
 import { ValidateEmail } from "@/utils";
 import PasswordInput from "./PasswordInput";
 import EmailInput from "./EmailInput";
+import Register from "./Register";
+import Login from "./Login";
 export default function Authenticate({ isLogin = false, handleSubmit }) {
 	const [isEmail, setisEmail] = React.useState(true);
 	const [email, setEmail] = React.useState("");
@@ -25,26 +27,7 @@ export default function Authenticate({ isLogin = false, handleSubmit }) {
 
 	return (
 		<>
-			<Typography
-				id="modal-modal-title"
-				variant="h6"
-				component="h2"
-				sx={{ fontFamily: "monospace", fontWeight: 700 }}
-			>
-				{isLogin ? "Welcome Back" : "Create Your Account"}
-			</Typography>
-			{isEmail ? (
-				<EmailInput email={email} setEmail={setEmail} handleClick={handleEmail} />
-			) : (
-				<PasswordInput
-					isLogin={isLogin}
-					handleClick={handleClick}
-					password={password}
-					setPassword={setPassword}
-					email={email}
-					handleEdit={handleEdit}
-				/>
-			)}
+			{isLogin ? <Login handleSubmit={handleSubmit} /> : <Register handleSubmit={handleSubmit} />}
 		</>
 	);
 }

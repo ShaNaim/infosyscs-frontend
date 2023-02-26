@@ -21,12 +21,22 @@ export default function PasswordInput({
 	const [showPassword, setShowPassword] = React.useState(false);
 	const [passwordError, setPasswordError] = React.useState(false);
 
+	const [passwordConfirm, setPasswordConfirm] = React.useState("");
+	const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
+	const [passwordConfirmError, setPasswordConfirmError] = React.useState(false);
+
 	const handleSubmit = () => {
 		if (password === "") return setPasswordError(true);
+		if (password !== passwordConfirm && !isLogin) {
+			setPasswordError(true);
+			setPasswordConfirmError(true);
+			return;
+		}
 		return handleClick();
 	};
 
 	const handleClickShowPassword = () => setShowPassword((show) => !show);
+	const handleClickShowConfirmPassword = () => setShowConfirmPassword((show) => !show);
 
 	const handleMouseDownPassword = (event) => {
 		event.preventDefault();
@@ -44,16 +54,16 @@ export default function PasswordInput({
 								<Button onClick={handleEdit}>EDIT</Button>
 							</InputAdornment>
 						}
-						label="Password"
+						label="Email"
 						value={email}
 					/>
 					<FormControl sx={{ ...inputSxObject, marginTop: "20px" }} variant="outlined">
-						<InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+						<InputLabel htmlFor="password-label">Password</InputLabel>
 						<OutlinedInput
 							error={passwordError}
 							value={password}
 							onChange={(e) => setPassword(e.target.value)}
-							id="outlined-adornment-password"
+							id="password-label"
 							type={showPassword ? "text" : "password"}
 							endAdornment={
 								<InputAdornment position="end">
@@ -69,10 +79,47 @@ export default function PasswordInput({
 							}
 							label="Password"
 						/>
+						{passwordError && !passwordConfirmError ? (
+							<span style={{ color: "red" }}>Password Can't Be Empty</span>
+						) : (
+							<></>
+						)}
 					</FormControl>
+					{!isLogin ? (
+						<FormControl sx={{ ...inputSxObject, marginTop: "-8px" }} variant="outlined">
+							<InputLabel htmlFor="confirm-password-label">Confirm Password</InputLabel>
+							<OutlinedInput
+								error={passwordConfirmError}
+								value={passwordConfirm}
+								onChange={(e) => setPasswordConfirm(e.target.value)}
+								id="confirm-password-label"
+								type={showConfirmPassword ? "text" : "password"}
+								endAdornment={
+									<InputAdornment position="end">
+										<IconButton
+											aria-label="toggle password visibility"
+											onClick={handleClickShowConfirmPassword}
+											onMouseDown={handleMouseDownPassword}
+											edge="end"
+										>
+											{showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+										</IconButton>
+									</InputAdornment>
+								}
+								label="Confirm Password"
+							/>
+							{passwordConfirmError ? (
+								<span style={{ color: "red" }}>Passwords Don't Match</span>
+							) : (
+								<></>
+							)}
+						</FormControl>
+					) : (
+						<></>
+					)}
 				</FormControl>
 
-				<FunctionButton handleClick={handleSubmit}>
+				<FunctionButton isLogin={isLogin} handleClick={handleSubmit}>
 					{isLogin ? "Login" : "Create Account"}
 				</FunctionButton>
 			</Box>

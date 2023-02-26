@@ -21,7 +21,7 @@ const Report = () => {
 			}
 		}
 		try {
-			getAllData();
+			reportId && getAllData();
 		} catch (error) {
 			console.log(error);
 		}
