@@ -6,7 +6,7 @@ export default function Footer() {
 		<>
 			<Toolbar
 				sx={{
-					backgroundColor: "#154b92b2",
+					backgroundColor: "rgba(74, 195, 199, 0.856)",
 				}}
 			>
 				Footers

@@ -13,6 +13,8 @@ import DataUsageIcon from "@mui/icons-material/DataUsage";
 import Link from "next/link";
 import Profile from "./Profile";
 import { useRouter } from "next/router";
+import Image from "next/image";
+
 import { getCookie, getCookies, hasCookie, deleteCookie } from "cookies-next";
 
 const pages = ["About", "Pricing"];
@@ -32,10 +34,31 @@ function NavBar({ isLogedUser }) {
 	};
 
 	return (
-		<AppBar sx={{ background: "#154b92b2" }} position="static">
+		<AppBar sx={{ background: " rgba(74, 195, 199, 0.856)" }} position="static">
 			<Container maxWidth="xl">
 				<Toolbar disableGutters>
-					<DataUsageIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+					<Box sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}>
+						<IconButton
+							size="large"
+							aria-label="account of current user"
+							aria-controls="menu-appbar"
+							aria-haspopup="true"
+							onClick={handleOpenNavMenu}
+							color="inherit"
+						>
+							{/* <MenuIcon /> */}
+							<Image
+								style={{
+									borderRadius: "50%",
+									boxShadow: `7px 8px 10px -1px #5be0e5c0`,
+								}}
+								src="/loading.gif"
+								alt="Picture of the author"
+								width={30}
+								height={30}
+							/>
+						</IconButton>
+					</Box>
 					<Link href="/">
 						<Typography
 							variant="h6"
@@ -63,7 +86,17 @@ function NavBar({ isLogedUser }) {
 							onClick={handleOpenNavMenu}
 							color="inherit"
 						>
-							<MenuIcon />
+							{/* <MenuIcon /> */}
+							<Image
+								style={{
+									borderRadius: "50%",
+									boxShadow: `7px 8px 10px -1px #5be0e5c0`,
+								}}
+								src="/loading.gif"
+								alt="Picture of the author"
+								width={30}
+								height={30}
+							/>
 						</IconButton>
 						<Menu
 							id="menu-appbar"
@@ -92,7 +125,7 @@ function NavBar({ isLogedUser }) {
 							))}
 						</Menu>
 					</Box>
-					<DataUsageIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+
 					<Link href="/">
 						<Typography
 							variant="h5"

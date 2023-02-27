@@ -1,16 +1,12 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import Auth from "@/components/Auth/Auth";
-import Head from "next/head";
+import HeadUI from "@/components/UI/HeadUI";
 
 export default function index() {
 	return (
 		<>
-			<Head>
-				<title>InfoSysCs | Register</title>
-				<meta name="description" content="InfoSysCs Login page" />
-				<meta name="viewport" content="width=device-width, initial-scale=1" />
-			</Head>
+			<HeadUI pageTitle={"Register"} />
 			<Box
 				sx={{
 					margin: "auto",

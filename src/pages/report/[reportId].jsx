@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { useRouter } from "next/router";
-import { selectAuthState, setAuthState } from "@/store/authSlice";
-import { useSelector } from "react-redux";
 import { getReportData } from "@/api/report";
-import Typography from "@mui/material/Typography";
-
 import DataDisplay from "@/components/Report/DataDisplay";
+import Loading from "@/components/UI/Loading";
+import { selectAuthState } from "@/store/authSlice";
 import { Box } from "@mui/material";
+import Typography from "@mui/material/Typography";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+
 const Report = () => {
 	const router = useRouter();
 	const { reportId } = router.query;
@@ -61,7 +62,7 @@ const Report = () => {
 					</Typography>
 				</>
 			)}
-			{reportData ? <DataDisplay reportList={reportData.detail} /> : <span>Loading...</span>}
+			{reportData ? <DataDisplay reportList={reportData.detail} /> : <Loading />}
 		</Box>
 	);
 };
