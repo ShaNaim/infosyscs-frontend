@@ -1,9 +1,10 @@
-import React from "react";
-import { getCookies, deleteCookie } from "cookies-next";
 import { handleUserLogout } from "@/api/auth";
+import Loading from "@/components/UI/Loading";
 import { setAuthState } from "@/store/authSlice";
 import { wrapper } from "@/store/store";
+import { deleteCookie, getCookies } from "cookies-next";
 import { useRouter } from "next/router";
+import React from "react";
 
 export default function logout({ redirectUrl }) {
 	const router = useRouter();
@@ -12,7 +13,7 @@ export default function logout({ redirectUrl }) {
 			redirectUrl && router.push(redirectUrl);
 		};
 	}, [redirectUrl]);
-	return <div>logout</div>;
+	return <Loading />;
 }
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async ({ req, res }) => {

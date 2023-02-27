@@ -1,6 +1,7 @@
-import React from "react";
-import { useRouter } from "next/router";
 import { CircularProgress } from "@mui/material";
+import { useRouter } from "next/router";
+import React from "react";
+
 CircularProgress;
 export default function index() {
 	const router = useRouter();

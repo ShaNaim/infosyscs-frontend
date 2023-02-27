@@ -1,17 +1,19 @@
-import React, { useState } from "react";
-import CircularProgress from "@mui/material/CircularProgress";
-import Box from "@mui/material/Box";
-import { checkAndFormateFiles } from "@/utils";
 import { handleRequestError } from "@/api/auth";
 import { uploadFileForProcessing } from "@/api/upload";
-import AuthModal from "../Auth/AuthModal";
-import Stack from "@mui/material/Stack";
+import { selectAuthState } from "@/store/authSlice";
+import { checkAndFormateFiles } from "@/utils";
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+
+import AuthModal from "../Auth/AuthModal";
+import BasicSelect from "../UI/BasicSelect";
+import Loading from "../UI/Loading";
 import NotifyAlert from "../UI/NotifyAlert";
 import ReportCompletePromt from "./ReportCompletePromt";
-import BasicSelect from "../UI/BasicSelect";
-import { selectAuthState } from "@/store/authSlice";
-import { useSelector } from "react-redux";
+
 export default function FileUpload() {
 	const authState = useSelector(selectAuthState);
 	const [file, setFile] = useState(null);
@@ -114,7 +116,10 @@ export default function FileUpload() {
 			</Box>
 			<Box sx={{ p: 3 }}>
 				{loading ? (
-					<CircularProgress />
+					<>
+						{/* <CircularProgress /> */}
+						<Loading />
+					</>
 				) : (
 					<>
 						{showDownloadLink ? (

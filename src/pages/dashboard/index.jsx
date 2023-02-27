@@ -1,13 +1,15 @@
-import React from "react";
-import { getCookie, getCookies, hasCookie, deleteCookie } from "cookies-next";
 import { handleGetUserData } from "@/api/auth";
-import { connectToReport, getAllReports } from "@/api/report";
+import { connectToReport } from "@/api/report";
 import Home from "@/components/Dashboard/Home";
-import { useRouter } from "next/router";
-import CircularProgress from "@mui/material/CircularProgress";
-import { selectAuthState, setAuthState } from "@/store/authSlice";
+import HeadUI from "@/components/UI/HeadUI";
+import Loading from "@/components/UI/Loading";
+import { setAuthState } from "@/store/authSlice";
 import { wrapper } from "@/store/store";
-import { useDispatch, useSelector } from "react-redux";
+import { deleteCookie, getCookies } from "cookies-next";
+import { useRouter } from "next/router";
+import React from "react";
+import { useDispatch } from "react-redux";
+
 export default function index({ accessToken, user, report }) {
 	const router = useRouter();
 	const dispatch = useDispatch();
@@ -26,15 +28,18 @@ export default function index({ accessToken, user, report }) {
 	}, [accessToken, user]);
 
 	return (
-		<div>
-			{user ? (
-				<Home user={user} accessToken={accessToken} report={report} />
-			) : (
-				<>
-					<CircularProgress />
-				</>
-			)}
-		</div>
+		<>
+			<HeadUI pageTitle={"Dashboard"} />
+			<div>
+				{user ? (
+					<Home user={user} accessToken={accessToken} report={report} />
+				) : (
+					<>
+						<Loading />
+					</>
+				)}
+			</div>
+		</>
 	);
 }
 
