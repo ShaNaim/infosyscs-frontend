@@ -41,7 +41,7 @@ export default function Profile({ settings }) {
 				onClose={handleCloseUserMenu}
 			>
 				{settings.map((setting) => (
-					<MenuItem key={setting} onClick={() => router.push(setting.toLowerCase())}>
+					<MenuItem key={setting} onClick={() => router.push("/" + setting.toLowerCase())}>
 						<Typography textAlign="center">{setting}</Typography>
 					</MenuItem>
 				))}

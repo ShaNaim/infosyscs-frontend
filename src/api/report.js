@@ -52,8 +52,28 @@ async function getReportData(token, refId) {
 	}
 }
 
+async function submitFeedbackForReport(feedbackData, token) {
+	try {
+		const response = await axios.post(
+			"http://localhost:3050/api/v1/reports/feedback",
+			feedbackData,
+			{
+				withCredentials: true,
+				headers: {
+					"Content-Type": "application/json",
+					authorization: `Bearer ${token}`,
+				},
+			}
+		);
+		return response.data;
+	} catch (error) {
+		throw error;
+	}
+}
+
 module.exports = {
 	connectToReport,
 	getAllReports,
 	getReportData,
+	submitFeedbackForReport,
 };

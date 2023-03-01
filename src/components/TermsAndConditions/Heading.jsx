@@ -1,21 +1,34 @@
 import React from "react";
 import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 export default function Heading() {
 	return (
 		<>
-			<Typography
+			<Box
 				sx={{
-					fontSize: "24px",
-					fontWeight: "600",
-					mb: 1,
-					fontFamily: "Roboto Mono",
-					fontWeight: 300,
+					textAlign: "center",
+					width: "100%",
+					mb: 2,
 				}}
 				variant="caption"
 				component="span"
 			>
-				Terms And Conditions
-			</Typography>
+				<Typography
+					sx={{
+						fontSize: "32px",
+						fontWeight: "800",
+						p: 2,
+						fontFamily: "Roboto Mono",
+						fontWeight: 300,
+						textAlign: "center",
+						height: "100%",
+					}}
+					variant="caption"
+					component="span"
+				>
+					Terms And Conditions
+				</Typography>
+			</Box>
 		</>
 	);
 }

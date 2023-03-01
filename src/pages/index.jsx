@@ -4,11 +4,16 @@ import HeadUI from "@/components/UI/HeadUI";
 import { setAuthState } from "@/store/authSlice";
 import { wrapper } from "@/store/store";
 import Box from "@mui/material/Box";
+import Paper from "@mui/material/Paper";
 import Container from "@mui/material/Container";
 import CssBaseline from "@mui/material/CssBaseline";
 import { getCookies } from "cookies-next";
 import React from "react";
 import TermsAndCondition from "@/components/TermsAndConditions";
+import Link from "next/link";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+
 export default function Home() {
 	return (
 		<>
@@ -16,12 +21,52 @@ export default function Home() {
 			<HeadUI pageTitle={"Home"}></HeadUI>
 			<React.Fragment>
 				<Container maxWidth="lg">
-					<Box sx={{ bgcolor: "#faf9f9" }}>
-						<Box sx={{ marginTop: "8%" }}>
-							<FileUpload />
-						</Box>
-					</Box>
-					<TermsAndCondition />
+					<Stack
+						sx={{ width: "100%", mb: 3 }}
+						direction="column"
+						justifyContent="center"
+						alignItems="center"
+						spacing={3}
+					>
+						<Typography
+							variant="h6"
+							component="h1"
+							sx={{
+								fontWeight: 700,
+								fontSize: { xs: "18px", md: "24px" },
+								color: "inherit",
+								textDecoration: "none",
+							}}
+						>
+							Qualitative Data Analysis Assistant
+						</Typography>
+						<Typography
+							variant="h6"
+							component="h2"
+							sx={{
+								fontWeight: 600,
+								fontSize: { xs: "16px", md: "20px" },
+								color: "inherit",
+								textDecoration: "none",
+							}}
+						>
+							Thematic Analysis
+						</Typography>
+						<Paper
+							elevation={4}
+							sx={{ bgcolor: "#474747", marginTop: "8%", color: "white", borderRadius: "12px" }}
+						>
+							<Stack
+								sx={{ width: "100%" }}
+								direction="column"
+								justifyContent="center"
+								alignItems="center"
+								spacing={3}
+							>
+								<FileUpload />
+							</Stack>
+						</Paper>
+					</Stack>
 				</Container>
 			</React.Fragment>
 		</>

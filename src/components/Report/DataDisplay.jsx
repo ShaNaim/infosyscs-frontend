@@ -6,8 +6,8 @@ export default function DataDisplay({ reportList }) {
 			{reportList.map((report, index) => {
 				return (
 					<div key={index}>
-						<h4> {report.heading} </h4>
-						<p>{report.details}</p>
+						<h2 style={{ fontSize: "32px" }}> {report.heading} </h2>
+						<p style={{ fontSize: "24px" }}>{report.details}</p>
 					</div>
 				);
 			})}

@@ -4,20 +4,24 @@ import { selectAuthState } from "@/store/authSlice";
 import { checkAndFormateFiles } from "@/utils";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import Checkbox from "@mui/material/Checkbox";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormGroup from "@mui/material/FormGroup";
 import Stack from "@mui/material/Stack";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-
+import Link from "next/link";
 import AuthModal from "../Auth/AuthModal";
 import BasicSelect from "../UI/BasicSelect";
 import Loading from "../UI/Loading";
 import NotifyAlert from "../UI/NotifyAlert";
 import ReportCompletePromt from "./ReportCompletePromt";
-
+import Typography from "@mui/material/Typography";
 export default function FileUpload() {
 	const authState = useSelector(selectAuthState);
 	const [file, setFile] = useState(null);
 	const [hasError, setHasError] = useState(false);
+	const [acceptTerms, setAcceptTerms] = useState(false);
 	const [errorMessage, setErrorMessage] = useState("");
 	const [loading, setLoading] = useState(false);
 	const [openModal, setOpenModal] = useState(false);
@@ -40,6 +44,11 @@ export default function FileUpload() {
 	const handleSubmit = async (event) => {
 		try {
 			event.preventDefault();
+			if (!acceptTerms) {
+				setHasError(true);
+				setErrorMessage("Please Read and Accept the Terms and Conditions");
+				return;
+			}
 			const formData = checkAndFormateFiles(file, type);
 			setLoading(true);
 			const response = await uploadFileForProcessing(formData, type);
@@ -50,6 +59,7 @@ export default function FileUpload() {
 			}
 			setShowDownloadLink(true);
 		} catch (error) {
+			setLoading(false);
 			if (error.fileError) {
 				setHasError(true);
 				setErrorMessage(error.message);
@@ -60,16 +70,15 @@ export default function FileUpload() {
 				setHasError(true);
 				setErrorMessage("Something Went Wrong , Please Try Again");
 			}
-			setLoading(false);
 		}
 	};
 
 	return (
-		<Stack direction="column" justifyContent="center" alignItems="center" spacing={4}>
-			<Box sx={{ mt: 3 }}>
+		<Stack direction="column" justifyContent="center" alignItems="center" spacing={1}>
+			<Box sx={{ mt: 8, color: "white" }}>
 				<form onSubmit={handleSubmit}>
 					<Stack
-						direction={{ xs: "column", sm: "row" }}
+						direction={{ xs: "column", md: "row" }}
 						justifyContent="center"
 						alignItems="center"
 						spacing={{ xs: 4, sm: 12 }}
@@ -84,54 +93,97 @@ export default function FileUpload() {
 								disabled={loading}
 								variant="contained"
 								component="label"
-								sx={{ p: 2, backgroundColor: "#076d29df" }}
-								color="success"
+								sx={{
+									p: 2,
+									width: { xs: "280px", sm: "280px" },
+									height: { xs: "56px", sm: "56px" },
+									backgroundColor: "#5ce1e681",
+								}}
+								color="primary"
+								size="large"
 							>
 								<input type="file" multiple name="file" onChange={handleFileChange} />
 							</Button>
-							<span
-								style={{
-									fontSize: "14px",
-									fontFamily: "monospace",
-									marginLeft: "4px",
-									color: "#0000006c",
-								}}
-							>
-								Maximum 5 Files
-							</span>
 						</Stack>
 						<BasicSelect items={fileTypes} type={type} setType={setType} />
 						<Button
 							disabled={loading}
-							sx={{ p: 2, width: { xs: "100%", sm: "20%" }, backgroundColor: "#076d29a2" }}
+							sx={{
+								p: 2,
+								width: { xs: "280px", sm: "280px" },
+								height: { xs: "56px", sm: "56px" },
+								backgroundColor: "#5ce1e681",
+								mb: 1,
+							}}
 							variant="contained"
 							type="submit"
-							color="success"
+							color="primary"
+							size="large"
 						>
 							Upload
 						</Button>
-						<AuthModal setOpen={setOpenModal} open={openModal} />
 					</Stack>
 				</form>
+				<FormGroup sx={{ margin: "18px 8px 0 24px" }}>
+					<FormControlLabel
+						sx={{ width: { xs: "100%", md: "40%" } }}
+						control={
+							<Checkbox
+								color="primary"
+								sx={{ color: "white" }}
+								value={acceptTerms}
+								onClick={(e) => setAcceptTerms((prev) => !prev)}
+							/>
+						}
+						label="Acknowledgement of Terms and Conditions"
+					/>
+				</FormGroup>
+				<Typography
+					variant="body2"
+					component="div"
+					sx={{
+						fontWeight: 100,
+						fontSize: "16px",
+						color: "inherit",
+						textDecoration: "none",
+						px: 3,
+						pb: 3,
+						pt: 1,
+					}}
+				>
+					By using the Software, you acknowledge that you have read these{" "}
+					<Typography
+						variant="body1"
+						component="a"
+						sx={{
+							fontWeight: 600,
+							fontSize: "16px",
+							color: "inherit",
+							textDecoration: "underline",
+						}}
+					>
+						<Link href="/terms-and-conditions">terms and conditions</Link>
+					</Typography>
+					, understand them, and agree to be bound by them.
+				</Typography>
 			</Box>
-			<Box sx={{ p: 3 }}>
-				{loading ? (
-					<>
-						{/* <CircularProgress /> */}
-						<Loading />
-					</>
-				) : (
-					<>
-						{showDownloadLink ? (
-							<div>
-								<ReportCompletePromt />
-							</div>
-						) : (
-							<></>
-						)}
-					</>
-				)}
-			</Box>
+			{loading ? (
+				<>
+					{/* <CircularProgress /> */}
+					<Loading />
+				</>
+			) : (
+				<>
+					{showDownloadLink ? (
+						<Box sx={{ p: 3 }}>
+							<ReportCompletePromt />
+						</Box>
+					) : (
+						<></>
+					)}
+				</>
+			)}
+			<AuthModal setOpen={setOpenModal} open={openModal} />
 			<NotifyAlert open={hasError} setOpen={setHasError} type="error" message={errorMessage} />
 		</Stack>
 	);

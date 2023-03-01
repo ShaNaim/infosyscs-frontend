@@ -14,6 +14,21 @@ async function handleGetUserData(token) {
 	}
 }
 
+async function handleGetAdminData(token) {
+	try {
+		const response = await axios.get("http://localhost:3050/api/v1/auth/admin", {
+			withCredentials: true,
+			headers: {
+				"Content-Type": "application/json",
+				authorization: `Bearer ${token}`,
+			},
+		});
+		return response.data;
+	} catch (error) {
+		throw error;
+	}
+}
+
 async function handleUserLogin(user) {
 	try {
 		const response = await axios.post("http://localhost:3050/api/v1/auth/login", user, {
@@ -78,4 +93,5 @@ module.exports = {
 	handleUserRegister,
 	handleRequestError,
 	handleUserLogout,
+	handleGetAdminData,
 };

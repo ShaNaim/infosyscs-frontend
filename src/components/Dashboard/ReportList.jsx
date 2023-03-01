@@ -19,8 +19,8 @@ export default function ReportList() {
 		getAllData();
 	}, [authState]);
 	return (
-		<div>
+		<>
 			<BasicTable data={reportsList} />
-		</div>
+		</>
 	);
 }

@@ -1,4 +1,4 @@
-import { handleGetUserData } from "@/api/auth";
+import { handleGetAdminData } from "@/api/auth";
 import { connectToReport } from "@/api/report";
 import Home from "@/components/Dashboard/Home";
 import HeadUI from "@/components/UI/HeadUI";
@@ -13,19 +13,19 @@ import { useDispatch } from "react-redux";
 export default function index({ accessToken, user, report }) {
 	const router = useRouter();
 	const dispatch = useDispatch();
-	// React.useEffect(() => {
-	// 	if (!accessToken) {
-	// 		router.push("/register");
-	// 	} else {
-	// 		dispatch(
-	// 			setAuthState({
-	// 				isLogedUser: true,
-	// 				accessToken: accessToken,
-	// 				user: user.data,
-	// 			})
-	// 		);
-	// 	}
-	// }, [accessToken, user]);
+	React.useEffect(() => {
+		if (!accessToken) {
+			router.push("/register");
+		} else {
+			dispatch(
+				setAuthState({
+					isLogedUser: true,
+					accessToken: accessToken,
+					user: user.data,
+				})
+			);
+		}
+	}, [accessToken, user]);
 
 	return (
 		<>
@@ -51,14 +51,13 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ({
 			return { props: { accessToken: false } };
 		}
 		isAuth = cookies.accessToken;
-		const user = await handleGetUserData(isAuth);
+		const user = await handleGetAdminData(isAuth);
 		if (!user) {
-			res.setHeader("location", "/login");
+			res.setHeader("location", "/404");
 			res.statusCode = 302;
 			res.end();
 			return;
 		}
-
 		await store.dispatch(
 			setAuthState({
 				isLogedUser: true,
@@ -66,18 +65,10 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ({
 				user: user.data,
 			})
 		);
-		if (cookies.report_auth_token) {
-			const foundAndConnected = await connectToReport(isAuth, cookies.report_auth_token);
-			if (!foundAndConnected) return { props: { accessToken: isAuth, user: user.data } };
-			deleteCookie("report_auth_token", { req, res });
-			return {
-				props: { accessToken: isAuth, user: user.data, report: foundAndConnected },
-			};
-		}
 		return { props: { accessToken: isAuth, user: user.data } };
 	} catch (error) {
 		console.log(error);
-		res.setHeader("location", "/login");
+		res.setHeader("location", "/404");
 		res.statusCode = 302;
 		res.end();
 		return;

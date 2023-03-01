@@ -1,8 +1,12 @@
 import { getReportData } from "@/api/report";
 import DataDisplay from "@/components/Report/DataDisplay";
+import FeedBack from "@/components/Report/FeedBack";
+import HeadUI from "@/components/UI/HeadUI";
 import Loading from "@/components/UI/Loading";
 import { selectAuthState } from "@/store/authSlice";
-import { Box } from "@mui/material";
+import Box from "@mui/material/Box";
+import Paper from "@mui/material/Paper";
+import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -29,41 +33,40 @@ const Report = () => {
 	}, [reportId]);
 
 	return (
-		<Box sx={{ p: 3 }}>
-			{reportData && (
+		<>
+			{reportData ? (
 				<>
-					<Typography
-						variant="h5"
-						noWrap
-						component="span"
+					<HeadUI pageTitle={reportData.name ? reportData.name : "hello"} />
+					<Box
 						sx={{
-							mr: 2,
-							flexGrow: 1,
-							fontWeight: 100,
-							color: "inherit",
-							textDecoration: "none",
+							padding: "32px 12px 32px 12px",
+							width: "100%",
 						}}
 					>
-						cost : {reportData.cost}
-					</Typography>
-					<Typography
-						variant="h5"
-						noWrap
-						component="span"
-						sx={{
-							mr: 2,
-							flexGrow: 1,
-							fontWeight: 100,
-							color: "inherit",
-							textDecoration: "none",
-						}}
-					>
-						token : {reportData.token}
-					</Typography>
+						<Stack direction="column" alignItems="center" justifyContent="center" spacing={2}>
+							<Typography
+								component="div"
+								variant="h6"
+								sx={{
+									textTransform: "capitalize",
+									fontWeight: "600",
+									textAlign: "center",
+									width: "100%",
+								}}
+							>
+								{reportData.name}
+							</Typography>
+							<Paper elevation={4} sx={{ p: 3 }}>
+								<DataDisplay reportList={reportData.detail} />
+							</Paper>
+							<FeedBack reportId={reportId} />
+						</Stack>
+					</Box>
 				</>
+			) : (
+				<Loading />
 			)}
-			{reportData ? <DataDisplay reportList={reportData.detail} /> : <Loading />}
-		</Box>
+		</>
 	);
 };
 

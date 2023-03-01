@@ -12,10 +12,13 @@ export default function BasicSelect({ items, type, setType }) {
 	return (
 		<Box sx={{ minWidth: 120 }}>
 			<FormControl fullWidth>
-				<InputLabel id="demo-simple-select-label">File Type</InputLabel>
+				<InputLabel sx={{ color: "white" }} id="file-type-select">
+					File Type
+				</InputLabel>
 				<Select
-					labelId="demo-simple-select-label"
-					id="demo-simple-select"
+					sx={{ color: "white", border: "1px solid white" }}
+					labelId="file-type-select"
+					id="file-type-select-id"
 					value={type}
 					label="File Type"
 					onChange={handleChange}

@@ -1,0 +1,11 @@
+{
+	"name": "InfoSysCS",
+	"about": "Lorem ipsum dolor sit amet, consectateur adispicing elit. Fusce euismod convallis velit, eu auctor lacus vehicula sit amet.",
+	"address": {
+		"address": "26 concored road",
+		"area": "Sadar",
+		"city": "Khulna",
+		"postal": "9100"
+	},
+	"phone": "+8801728420051"
+}

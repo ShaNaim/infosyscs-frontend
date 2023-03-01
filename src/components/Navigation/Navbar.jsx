@@ -1,25 +1,24 @@
-import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
+import Container from "@mui/material/Container";
+import IconButton from "@mui/material/IconButton";
+import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import DataUsageIcon from "@mui/icons-material/DataUsage";
-import Link from "next/link";
-import Profile from "./Profile";
-import { useRouter } from "next/router";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import * as React from "react";
+import Profile from "./Profile";
 
-import { getCookie, getCookies, hasCookie, deleteCookie } from "cookies-next";
-
-const pages = ["About", "Pricing"];
+const pages = [
+	{ name: "About", value: "/about" },
+	{ name: "Terms", value: "/terms-and-conditions" },
+];
 const settings = ["Dashboard", "Logout"];
-const appName = "InfoSysCs";
+const appName = "InfoSysCS";
 
 function NavBar({ isLogedUser }) {
 	const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -34,8 +33,8 @@ function NavBar({ isLogedUser }) {
 	};
 
 	return (
-		<AppBar sx={{ background: " rgba(74, 195, 199, 0.856)" }} position="static">
-			<Container maxWidth="xl">
+		<AppBar sx={{ background: "#474747" }} position="static">
+			<Container sx={{ height: "100%" }} maxWidth="xl">
 				<Toolbar disableGutters>
 					<Box sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}>
 						<IconButton
@@ -50,12 +49,11 @@ function NavBar({ isLogedUser }) {
 							<Image
 								style={{
 									borderRadius: "50%",
-									boxShadow: `7px 8px 10px -1px #5be0e5c0`,
 								}}
-								src="/loading.gif"
-								alt="Picture of the author"
-								width={30}
-								height={30}
+								src="/favicon.svg"
+								alt="Picture of the Company"
+								width={80}
+								height={80}
 							/>
 						</IconButton>
 					</Box>
@@ -63,15 +61,15 @@ function NavBar({ isLogedUser }) {
 						<Typography
 							variant="h6"
 							noWrap
-							component="span"
+							component="h2"
 							sx={{
 								mr: 2,
 								display: { xs: "none", md: "flex" },
 								fontFamily: "monospace",
 								fontWeight: 700,
 								letterSpacing: ".3rem",
-								color: "inherit",
 								textDecoration: "none",
+								color: "#5CE1E6",
 							}}
 						>
 							{appName}
@@ -90,12 +88,11 @@ function NavBar({ isLogedUser }) {
 							<Image
 								style={{
 									borderRadius: "50%",
-									boxShadow: `7px 8px 10px -1px #5be0e5c0`,
 								}}
-								src="/loading.gif"
-								alt="Picture of the author"
-								width={30}
-								height={30}
+								src="/favicon.svg"
+								alt="Picture of the Company"
+								width={40}
+								height={40}
 							/>
 						</IconButton>
 						<Menu
@@ -117,9 +114,9 @@ function NavBar({ isLogedUser }) {
 							}}
 						>
 							{pages.map((page) => (
-								<MenuItem key={page} onClick={handleCloseNavMenu}>
+								<MenuItem key={page.value} onClick={handleCloseNavMenu}>
 									<Typography sx={{ fontFamily: "monospace", fontWeight: 700 }} textAlign="center">
-										{page}
+										{page.name}
 									</Typography>
 								</MenuItem>
 							))}
@@ -140,6 +137,7 @@ function NavBar({ isLogedUser }) {
 								letterSpacing: ".3rem",
 								color: "inherit",
 								textDecoration: "none",
+								color: "#5CE1E6",
 							}}
 						>
 							{appName}
@@ -148,15 +146,16 @@ function NavBar({ isLogedUser }) {
 					<Box sx={{ flexGrow: 2 }} />
 					<Box sx={{ flexGrow: 0, mr: 3, display: { xs: "none", md: "flex" } }}>
 						{pages.map((page) => (
-							<Button
-								key={page}
-								onClick={handleCloseNavMenu}
-								sx={{ my: 2, color: "white", display: "block" }}
-							>
-								<Typography sx={{ fontFamily: "monospace", fontWeight: 700 }} textAlign="center">
-									{page}
-								</Typography>
-							</Button>
+							<Link key={page.name} href={page.value}>
+								<Button sx={{ my: 2, color: "white", display: "block" }}>
+									<Typography
+										sx={{ fontFamily: "monospace", fontWeight: 700, color: "#5CE1E6" }}
+										textAlign="center"
+									>
+										{page.name}
+									</Typography>
+								</Button>
+							</Link>
 						))}
 					</Box>
 					{isLogedUser ? (
