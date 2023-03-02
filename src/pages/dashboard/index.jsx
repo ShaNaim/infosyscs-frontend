@@ -10,29 +10,29 @@ import { useRouter } from "next/router";
 import React from "react";
 import { useDispatch } from "react-redux";
 
-export default function index({ accessToken, user, report }) {
+export default function index({ accessToken, user }) {
 	const router = useRouter();
 	const dispatch = useDispatch();
-	// React.useEffect(() => {
-	// 	if (!accessToken) {
-	// 		router.push("/register");
-	// 	} else {
-	// 		dispatch(
-	// 			setAuthState({
-	// 				isLogedUser: true,
-	// 				accessToken: accessToken,
-	// 				user: user.data,
-	// 			})
-	// 		);
-	// 	}
-	// }, [accessToken, user]);
+	React.useEffect(() => {
+		if (!accessToken) {
+			router.push("/register");
+		} else {
+			dispatch(
+				setAuthState({
+					isLogedUser: true,
+					accessToken: accessToken,
+					user: user.data,
+				})
+			);
+		}
+	}, [accessToken, user]);
 
 	return (
 		<>
 			<HeadUI pageTitle={"Dashboard"} />
 			<div>
 				{user ? (
-					<Home user={user} accessToken={accessToken} report={report} />
+					<Home user={user} />
 				) : (
 					<>
 						<Loading />
@@ -48,7 +48,10 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ({
 		let isAuth = "";
 		const cookies = getCookies({ req, res });
 		if (!cookies.accessToken) {
-			return { props: { accessToken: false } };
+			res.setHeader("location", "/login");
+			res.statusCode = 302;
+			res.end();
+			return;
 		}
 		isAuth = cookies.accessToken;
 		const user = await handleGetUserData(isAuth);
@@ -58,7 +61,6 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ({
 			res.end();
 			return;
 		}
-
 		await store.dispatch(
 			setAuthState({
 				isLogedUser: true,
@@ -71,7 +73,7 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ({
 			if (!foundAndConnected) return { props: { accessToken: isAuth, user: user.data } };
 			deleteCookie("report_auth_token", { req, res });
 			return {
-				props: { accessToken: isAuth, user: user.data, report: foundAndConnected },
+				props: { accessToken: isAuth, user: user.data },
 			};
 		}
 		return { props: { accessToken: isAuth, user: user.data } };

@@ -16,7 +16,6 @@ export default function Home({ user }) {
 	// 	// 		props: { accessToken: isAuth, user: user.data, reportsList: [foundAndConnected] },
 	// 	// 	};
 	// }, []);
-	console.log({ user });
 	return (
 		<>
 			<Stack

@@ -37,6 +37,21 @@ async function getAllReports(token) {
 	}
 }
 
+async function getAllReportsByAdmin(token) {
+	try {
+		const response = await axios.get("http://localhost:3050/api/v1/reports", {
+			withCredentials: true,
+			headers: {
+				"Content-Type": "application/json",
+				authorization: `Bearer ${token}`,
+			},
+		});
+		return response.data;
+	} catch (error) {
+		throw error;
+	}
+}
+
 async function getReportData(token, refId) {
 	try {
 		const response = await axios.get("http://localhost:3050/api/v1/reports/" + refId, {
@@ -76,4 +91,5 @@ module.exports = {
 	getAllReports,
 	getReportData,
 	submitFeedbackForReport,
+	getAllReportsByAdmin,
 };

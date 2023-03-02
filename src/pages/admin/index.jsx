@@ -9,10 +9,11 @@ import { deleteCookie, getCookies } from "cookies-next";
 import { useRouter } from "next/router";
 import React from "react";
 import { useDispatch } from "react-redux";
-
-export default function index({ accessToken, user, report }) {
+import AdminHome from "@/components/Admin";
+export default function index({ accessToken, user }) {
 	const router = useRouter();
 	const dispatch = useDispatch();
+
 	React.useEffect(() => {
 		if (!accessToken) {
 			router.push("/register");
@@ -32,7 +33,7 @@ export default function index({ accessToken, user, report }) {
 			<HeadUI pageTitle={"Dashboard"} />
 			<div>
 				{user ? (
-					<Home user={user} accessToken={accessToken} report={report} />
+					<AdminHome />
 				) : (
 					<>
 						<Loading />
@@ -48,7 +49,10 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ({
 		let isAuth = "";
 		const cookies = getCookies({ req, res });
 		if (!cookies.accessToken) {
-			return { props: { accessToken: false } };
+			res.setHeader("location", "/404");
+			res.statusCode = 302;
+			res.end();
+			return;
 		}
 		isAuth = cookies.accessToken;
 		const user = await handleGetAdminData(isAuth);

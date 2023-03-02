@@ -154,11 +154,11 @@ export default function FileUpload() {
 					By using the Software, you acknowledge that you have read these{" "}
 					<Typography
 						variant="body1"
-						component="a"
+						component="span"
 						sx={{
 							fontWeight: 600,
 							fontSize: "16px",
-							color: "inherit",
+							color: "#5ce1e681",
 							textDecoration: "underline",
 						}}
 					>

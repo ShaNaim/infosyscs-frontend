@@ -19,7 +19,7 @@ export default function TestFooter() {
 			<Box sx={{ width: "100%", pb: "10px" }}>
 				<Stack
 					direction={{ xs: "column", md: "row" }}
-					justifyContent="center"
+					justifyContent="flex-start"
 					alignItems="flex-start"
 					spacing={{ xs: 4, md: 18 }}
 					sx={{ width: "100%" }}
@@ -39,7 +39,7 @@ export default function TestFooter() {
 								<LinkPoints url="/about">T & C</LinkPoints>
 								<LinkPoints url="/admin">Admin</LinkPoints>
 							</div>
-							<p>
+							<div>
 								<Typography
 									sx={{
 										fontFamily: "monospace",
@@ -52,11 +52,10 @@ export default function TestFooter() {
 								>
 									About the company
 								</Typography>
-								<Typography variant="body2" component="span">
-									Lorem ipsum dolor sit amet, consectateur adispicing elit. Fusce euismod convallis
-									velit, eu auctor lacus vehicula sit amet.
+								<Typography variant="body2" component="p">
+									{companyInfo.about}
 								</Typography>
-							</p>
+							</div>
 							<p>{companyInfo.name} © 2023</p>
 						</Stack>
 					</Box>
@@ -109,15 +108,15 @@ export default function TestFooter() {
 
 								<IconLinks>
 									<EmailIcon />
-									<p>
+									<div>
 										<a href="mailto:support@company.com">support@company.com</a>
-									</p>
+									</div>
 								</IconLinks>
 							</Stack>
 
 							<Stack
 								direction="row"
-								justifyContent="space-between"
+								justifyContent="flex-start"
 								alignItems="flex-start"
 								spacing={2}
 								sx={{ width: "100%", height: "100%", mt: 3 }}

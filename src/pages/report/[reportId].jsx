@@ -11,7 +11,7 @@ import Typography from "@mui/material/Typography";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-
+import FeedBackDetails from "@/components/Report/FeedBackDetails";
 const Report = () => {
 	const router = useRouter();
 	const { reportId } = router.query;
@@ -43,7 +43,12 @@ const Report = () => {
 							width: "100%",
 						}}
 					>
-						<Stack direction="column" alignItems="center" justifyContent="center" spacing={2}>
+						<Stack
+							direction="column"
+							alignItems="flex-start"
+							justifyContent="flex-start"
+							spacing={2}
+						>
 							<Typography
 								component="div"
 								variant="h6"
@@ -59,7 +64,7 @@ const Report = () => {
 							<Paper elevation={4} sx={{ p: 3 }}>
 								<DataDisplay reportList={reportData.detail} />
 							</Paper>
-							<FeedBack reportId={reportId} />
+							{reportData.feedBack ? <></> : <FeedBack reportId={reportId} />}
 						</Stack>
 					</Box>
 				</>
