@@ -16,9 +16,9 @@ export default function BasicSelect({ items, type, setType }) {
 					File Type
 				</InputLabel>
 				<Select
-					sx={{ color: "white", border: "1px solid white" }}
+					sx={{ color: "white" }}
 					labelId="file-type-select"
-					id="file-type-select-id"
+					id="file-type-select"
 					value={type}
 					label="File Type"
 					onChange={handleChange}

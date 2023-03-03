@@ -9,6 +9,7 @@ async function handleGetUserData(token) {
 				authorization: `Bearer ${token}`,
 			},
 		});
+		console.log({ response });
 		return response.data;
 	} catch (error) {
 		throw error;
@@ -24,6 +25,7 @@ async function handleGetAdminData(token) {
 				authorization: `Bearer ${token}`,
 			},
 		});
+		console.log({ response });
 		return response.data;
 	} catch (error) {
 		throw error;
@@ -38,6 +40,7 @@ async function handleUserLogin(user) {
 				"Content-Type": "application/json",
 			},
 		});
+		console.log({ response });
 		return response.data;
 	} catch (error) {
 		console.error(error.response.data);
@@ -58,6 +61,7 @@ async function handleUserLogout(token) {
 				},
 			}
 		);
+		console.log({ response });
 		return response.data;
 	} catch (error) {
 		console.error(error.response.data);

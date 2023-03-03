@@ -36,10 +36,12 @@ export default function Auth({ login = false, isPage = false }) {
 	const handleSubmit = async (user) => {
 		try {
 			if (isLogin) {
+				console.log({ login: user });
 				const response = await handleUserLogin(user);
 				router.push("/dashboard");
 				// console.log({ user });
 			} else {
+				console.log({ register: user });
 				const response = await handleUserRegister({
 					...user,
 					passwordConfirmation: user.password,
