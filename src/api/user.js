@@ -1,7 +1,8 @@
 import axios from "axios";
+import api_url from "./url";
 export async function getAllUsers(token) {
 	try {
-		const response = await axios.get("http://localhost:3050/api/v1/users", {
+		const response = await axios.get(`${api_url}/users`, {
 			withCredentials: true,
 			headers: {
 				"Content-Type": "application/json",

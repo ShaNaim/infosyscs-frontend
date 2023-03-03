@@ -1,10 +1,12 @@
 import "@/styles/globals.css";
+
 import Layout from "@/components/Navigation";
-import Cookies from "universal-cookie";
-import { wrapper } from "../store/store";
-import { PersistGate } from "redux-persist/integration/react";
+import Loading from "@/components/UI/Loading";
 import { useStore } from "react-redux";
-import CircularProgress from "@mui/material/CircularProgress";
+import { PersistGate } from "redux-persist/integration/react";
+
+import { wrapper } from "../store/store";
+
 function App({ Component, pageProps }) {
 	const store = useStore();
 	return (
@@ -12,7 +14,7 @@ function App({ Component, pageProps }) {
 			persistor={store.__persistor}
 			loading={
 				<div>
-					<CircularProgress />
+					<Loading />
 				</div>
 			}
 		>

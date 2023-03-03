@@ -18,7 +18,7 @@ const pages = [
 	{ name: "Terms", value: "/terms-and-conditions" },
 ];
 const settings = ["Dashboard", "Logout"];
-const appName = "InfoSysCS";
+const appName = "InfoSys Coding Solution";
 
 function NavBar({ isLogedUser }) {
 	const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -47,13 +47,13 @@ function NavBar({ isLogedUser }) {
 						>
 							{/* <MenuIcon /> */}
 							<Image
-								style={{
-									borderRadius: "50%",
-								}}
-								src="/favicon.svg"
+								// style={{
+								// 	borderRadius: "50%",
+								// }}
+								src="/navicon.gif"
 								alt="Picture of the Company"
-								width={80}
-								height={80}
+								width={50}
+								height={50}
 							/>
 						</IconButton>
 					</Box>
@@ -86,10 +86,10 @@ function NavBar({ isLogedUser }) {
 						>
 							{/* <MenuIcon /> */}
 							<Image
-								style={{
-									borderRadius: "50%",
-								}}
-								src="/favicon.svg"
+								// style={{
+								// 	borderRadius: "50%",
+								// }}
+								src="/navicon.gif"
 								alt="Picture of the Company"
 								width={40}
 								height={40}
@@ -134,7 +134,8 @@ function NavBar({ isLogedUser }) {
 								flexGrow: 1,
 								fontFamily: "monospace",
 								fontWeight: 700,
-								letterSpacing: ".3rem",
+								fontSize: "12px",
+								letterSpacing: ".1rem",
 								color: "inherit",
 								textDecoration: "none",
 								color: "#5CE1E6",

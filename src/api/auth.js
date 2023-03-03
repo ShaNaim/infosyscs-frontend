@@ -1,7 +1,8 @@
 import axios from "axios";
+import api_url from "./url";
 async function handleGetUserData(token) {
 	try {
-		const response = await axios.get("http://localhost:3050/api/v1/auth/me", {
+		const response = await axios.get(`${api_url}/auth/me`, {
 			withCredentials: true,
 			headers: {
 				"Content-Type": "application/json",
@@ -16,7 +17,7 @@ async function handleGetUserData(token) {
 
 async function handleGetAdminData(token) {
 	try {
-		const response = await axios.get("http://localhost:3050/api/v1/auth/admin", {
+		const response = await axios.get(`${api_url}/auth/admin`, {
 			withCredentials: true,
 			headers: {
 				"Content-Type": "application/json",
@@ -31,7 +32,7 @@ async function handleGetAdminData(token) {
 
 async function handleUserLogin(user) {
 	try {
-		const response = await axios.post("http://localhost:3050/api/v1/auth/login", user, {
+		const response = await axios.post(`${api_url}/auth/login`, user, {
 			withCredentials: true,
 			headers: {
 				"Content-Type": "application/json",
@@ -47,7 +48,7 @@ async function handleUserLogin(user) {
 async function handleUserLogout(token) {
 	try {
 		const response = await axios.post(
-			"http://localhost:3050/api/v1/auth/logout",
+			`${api_url}/auth/logout`,
 			{},
 			{
 				withCredentials: true,
@@ -66,7 +67,7 @@ async function handleUserLogout(token) {
 
 async function handleUserRegister(user) {
 	try {
-		const response = await axios.post("http://localhost:3050/api/v1/users", user, {
+		const response = await axios.post(`${api_url}/users`, user, {
 			withCredentials: true,
 			headers: {
 				"Content-Type": "application/json",
@@ -95,9 +96,3 @@ module.exports = {
 	handleUserLogout,
 	handleGetAdminData,
 };
-
-// CREATE USER 'infosyscs'@'host' IDENTIFIED BY 'infoSysCS@28420051#';
-// GRANT CREATE, ALTER, DROP, INSERT, UPDATE, INDEX, DELETE, SELECT, REFERENCES, RELOAD on *.* TO 'infosyscs'@'host' WITH GRANT OPTION;
-// GRANT ALL PRIVILEGES ON *.* TO 'infosyscs'@'localhost' WITH GRANT OPTION;
-// GRANT ALL PRIVILEGES ON *.* TO ‘user_name @ host_name’ WITH GRANT OPTION;
-//Sys@@420
