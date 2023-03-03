@@ -31,8 +31,9 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ({
 				})
 			);
 		}
-		return { props: { redirectUrl: "/" } };
+		return { props: { redirectUrl: "/login" } };
 	} catch (error) {
-		return { props: { redirectUrl: "/" } };
+		console.log(error);
+		return { props: { redirectUrl: "/login" } };
 	}
 });

@@ -95,3 +95,9 @@ module.exports = {
 	handleUserLogout,
 	handleGetAdminData,
 };
+
+// CREATE USER 'infosyscs'@'host' IDENTIFIED BY 'infoSysCS@28420051#';
+// GRANT CREATE, ALTER, DROP, INSERT, UPDATE, INDEX, DELETE, SELECT, REFERENCES, RELOAD on *.* TO 'infosyscs'@'host' WITH GRANT OPTION;
+// GRANT ALL PRIVILEGES ON *.* TO 'infosyscs'@'localhost' WITH GRANT OPTION;
+// GRANT ALL PRIVILEGES ON *.* TO ‘user_name @ host_name’ WITH GRANT OPTION;
+//Sys@@420
