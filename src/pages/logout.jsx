@@ -6,7 +6,7 @@ import { deleteCookie, getCookies } from "cookies-next";
 import { useRouter } from "next/router";
 import React from "react";
 import { useDispatch } from "react-redux";
-export default function logout({ redirectUrl = "/login" }) {
+export default function logout() {
 	const router = useRouter();
 	const dispatch = useDispatch();
 	React.useEffect(() => {
@@ -18,9 +18,9 @@ export default function logout({ redirectUrl = "/login" }) {
 					user: null,
 				})
 			);
-			redirectUrl && router.push(redirectUrl);
+			router.push("/login");
 		};
-	}, [redirectUrl]);
+	}, []);
 	return <Loading />;
 }
 

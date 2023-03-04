@@ -7,16 +7,37 @@ import Menu from "@mui/material/Menu";
 import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-
+import { useDispatch } from "react-redux";
+import { selectAuthState } from "@/store/authSlice";
+import { useSelector } from "react-redux";
+import { setAuthState } from "@/store/authSlice";
 export default function Profile({ settings }) {
 	const [anchorElUser, setAnchorElUser] = React.useState(null);
+	const authState = useSelector(selectAuthState);
 	const router = useRouter();
+	const dispatch = useDispatch();
 	const handleOpenUserMenu = (event) => {
 		setAnchorElUser(event.currentTarget);
 	};
-	const handleCloseUserMenu = (setting) => {
+
+	const handleCloseUserMenu = () => {
 		setAnchorElUser(null);
 	};
+	const handleNav = () => {
+		setAnchorElUser(null);
+		router.push("/dashboard");
+	};
+	const handleLogout = () => {
+		dispatch(
+			setAuthState({
+				isLogedUser: false,
+				accessToken: null,
+				user: null,
+			})
+		);
+		router.push("/login");
+	};
+
 	return (
 		<Box sx={{ flexGrow: 0 }}>
 			<Tooltip title="Open settings">
@@ -40,11 +61,12 @@ export default function Profile({ settings }) {
 				open={Boolean(anchorElUser)}
 				onClose={handleCloseUserMenu}
 			>
-				{settings.map((setting) => (
-					<MenuItem key={setting} onClick={() => router.push("/" + setting.toLowerCase())}>
-						<Typography textAlign="center">{setting}</Typography>
-					</MenuItem>
-				))}
+				<MenuItem onClick={handleNav}>
+					<Typography textAlign="center"> Dashboard </Typography>
+				</MenuItem>
+				<MenuItem onClick={handleLogout}>
+					<Typography textAlign="center"> Logout </Typography>
+				</MenuItem>
 			</Menu>
 		</Box>
 	);
