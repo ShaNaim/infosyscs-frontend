@@ -73,32 +73,32 @@ export default function Home() {
 	);
 }
 
-export const getServerSideProps = wrapper.getServerSideProps((store) => async ({ req, res }) => {
-	try {
-		let isAuth = "";
-		const cookies = getCookies({ req, res });
-		if (!cookies.accessToken) {
-			return { props: {} };
-		}
-		isAuth = cookies.accessToken;
-		const user = await handleGetUserData(isAuth);
-		if (!user) return { props: {} };
-		await store.dispatch(
-			setAuthState({
-				isLogedUser: true,
-				accessToken: cookies.accessToken,
-				user: user.data,
-			})
-		);
-		if (cookies.report_auth_token) {
-			const foundAndConnected = await connectToReport(isAuth, cookies.report_auth_token);
-			if (!foundAndConnected) return { props: {} };
-			return {
-				props: {},
-			};
-		}
-		return { props: {} };
-	} catch (error) {
-		return { props: {} };
-	}
-});
+// export const getServerSideProps = wrapper.getServerSideProps((store) => async ({ req, res }) => {
+// 	try {
+// 		let isAuth = "";
+// 		const cookies = getCookies({ req, res });
+// 		if (!cookies.accessToken) {
+// 			return { props: {} };
+// 		}
+// 		isAuth = cookies.accessToken;
+// 		const user = await handleGetUserData(isAuth);
+// 		if (!user) return { props: {} };
+// 		await store.dispatch(
+// 			setAuthState({
+// 				isLogedUser: true,
+// 				accessToken: cookies.accessToken,
+// 				user: user.data,
+// 			})
+// 		);
+// 		if (cookies.report_auth_token) {
+// 			const foundAndConnected = await connectToReport(isAuth, cookies.report_auth_token);
+// 			if (!foundAndConnected) return { props: {} };
+// 			return {
+// 				props: {},
+// 			};
+// 		}
+// 		return { props: {} };
+// 	} catch (error) {
+// 		return { props: {} };
+// 	}
+// });

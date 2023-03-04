@@ -1,5 +1,4 @@
 import { handleRequestError, handleUserLogin, handleUserRegister } from "@/api/auth";
-import { selectAuthState } from "@/store/authSlice";
 import styles from "@/styles/Auth.module.css";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -8,12 +7,13 @@ import Typography from "@mui/material/Typography";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
+import { selectAuthState } from "@/store/authSlice";
+import { setAuthState } from "@/store/authSlice";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import Loading from "../UI/Loading";
 import NotifyAlert from "../UI/NotifyAlert";
 import Authenticate from "./Authenticate";
-
 export default function Auth({ login = false, isPage = false }) {
 	const router = useRouter();
 	const [isLogin, setIsLogin] = React.useState(login);
@@ -38,19 +38,31 @@ export default function Auth({ login = false, isPage = false }) {
 	const handleSubmit = async (user) => {
 		try {
 			if (isLogin) {
-				console.log({ login: user });
 				const response = await handleUserLogin(user);
-				console.log({ response });
+
+				dispatch(
+					setAuthState({
+						isLogedUser: true,
+						accessToken: response.data.accessToken,
+						user: response.data.user,
+					})
+				);
 				router.push("/dashboard");
-				// console.log({ user });
 			} else {
 				console.log({ register: user });
 				const response = await handleUserRegister({
 					...user,
 					passwordConfirmation: user.password,
 				});
+
+				dispatch(
+					setAuthState({
+						isLogedUser: true,
+						accessToken: response.data.accessToken,
+						user: response.data.user,
+					})
+				);
 				router.push("/dashboard");
-				// console.log({ user });
 			}
 		} catch (error) {
 			console.log(error);

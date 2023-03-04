@@ -1,6 +1,5 @@
 import { handleRequestError } from "@/api/auth";
 import { uploadFileForProcessing } from "@/api/upload";
-import { selectAuthState } from "@/store/authSlice";
 import { checkAndFormateFiles } from "@/utils";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -9,7 +8,6 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormGroup from "@mui/material/FormGroup";
 import Stack from "@mui/material/Stack";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
 import Link from "next/link";
 import AuthModal from "../Auth/AuthModal";
 import BasicSelect from "../UI/BasicSelect";
@@ -17,6 +15,10 @@ import Loading from "../UI/Loading";
 import NotifyAlert from "../UI/NotifyAlert";
 import ReportCompletePromt from "./ReportCompletePromt";
 import Typography from "@mui/material/Typography";
+import { selectAuthState, setAuthState } from "@/store/authSlice";
+import { setReportState } from "@/store/reportSlice";
+
+import { useSelector, useDispatch } from "react-redux";
 export default function FileUpload() {
 	const authState = useSelector(selectAuthState);
 	const [file, setFile] = useState(null);
@@ -27,6 +29,7 @@ export default function FileUpload() {
 	const [openModal, setOpenModal] = useState(false);
 	const [showDownloadLink, setShowDownloadLink] = useState(false);
 	const [type, setType] = useState("");
+	const dispatch = useDispatch();
 	const fileTypes = [
 		{
 			value: "pdf",
@@ -52,7 +55,13 @@ export default function FileUpload() {
 			const formData = checkAndFormateFiles(file, type);
 			setLoading(true);
 			const response = await uploadFileForProcessing(formData, type);
-
+			dispatch(
+				setReportState({
+					hasDisconnectedReport: true,
+					reportRef: response.data.reportRef,
+					reportId: response.data.reportId,
+				})
+			);
 			setLoading(false);
 			if (!authState.isLogedUser) {
 				setOpenModal(true);

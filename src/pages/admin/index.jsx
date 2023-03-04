@@ -9,28 +9,37 @@ import { deleteCookie, getCookies } from "cookies-next";
 import { useRouter } from "next/router";
 import React from "react";
 import { useDispatch } from "react-redux";
+import { selectAuthState } from "@/store/authSlice";
 import AdminHome from "@/components/Admin";
-export default function index({ accessToken, user }) {
+import { useSelector } from "react-redux";
+
+export default function index() {
+	const [user, setUser] = React.useState({});
 	const router = useRouter();
 	const dispatch = useDispatch();
-
+	const authState = useSelector(selectAuthState);
 	React.useEffect(() => {
-		if (!accessToken) {
-			router.push("/register");
-		} else {
-			dispatch(
-				setAuthState({
-					isLogedUser: true,
-					accessToken: accessToken,
-					user: user.data,
-				})
-			);
+		async function handleAdmin() {
+			try {
+				if (!authState.accessToken) {
+					router.push("/404");
+				} else {
+					const admin = await handleGetAdminData(authState.accessToken);
+					console.log({ admin });
+					if (admin) {
+						setUser(admin.data);
+					}
+				}
+			} catch (error) {
+				router.push("/404");
+			}
 		}
-	}, [accessToken, user]);
+		handleAdmin();
+	}, [authState]);
 
 	return (
 		<>
-			<HeadUI pageTitle={"Dashboard"} />
+			<HeadUI pageTitle={"Admin Panel"} />
 			<div>
 				{user ? (
 					<AdminHome />
@@ -44,37 +53,37 @@ export default function index({ accessToken, user }) {
 	);
 }
 
-export const getServerSideProps = wrapper.getServerSideProps((store) => async ({ req, res }) => {
-	try {
-		let isAuth = "";
-		const cookies = getCookies({ req, res });
-		if (!cookies.accessToken) {
-			res.setHeader("location", "/404");
-			res.statusCode = 302;
-			res.end();
-			return;
-		}
-		isAuth = cookies.accessToken;
-		const user = await handleGetAdminData(isAuth);
-		if (!user) {
-			res.setHeader("location", "/404");
-			res.statusCode = 302;
-			res.end();
-			return;
-		}
-		await store.dispatch(
-			setAuthState({
-				isLogedUser: true,
-				accessToken: cookies.accessToken,
-				user: user.data,
-			})
-		);
-		return { props: { accessToken: isAuth, user: user.data } };
-	} catch (error) {
-		console.log(error);
-		res.setHeader("location", "/404");
-		res.statusCode = 302;
-		res.end();
-		return;
-	}
-});
+// export const getServerSideProps = wrapper.getServerSideProps((store) => async ({ req, res }) => {
+// 	try {
+// 		let isAuth = "";
+// 		const cookies = getCookies({ req, res });
+// 		if (!cookies.accessToken) {
+// 			res.setHeader("location", "/404");
+// 			res.statusCode = 302;
+// 			res.end();
+// 			return;
+// 		}
+// 		isAuth = cookies.accessToken;
+// 		const user = await handleGetAdminData(isAuth);
+// 		if (!user) {
+// 			res.setHeader("location", "/404");
+// 			res.statusCode = 302;
+// 			res.end();
+// 			return;
+// 		}
+// 		await store.dispatch(
+// 			setAuthState({
+// 				isLogedUser: true,
+// 				accessToken: cookies.accessToken,
+// 				user: user.data,
+// 			})
+// 		);
+// 		return { props: { accessToken: isAuth, user: user.data } };
+// 	} catch (error) {
+// 		console.log(error);
+// 		res.setHeader("location", "/404");
+// 		res.statusCode = 302;
+// 		res.end();
+// 		return;
+// 	}
+// });
