@@ -28,6 +28,7 @@ async function getAllReports(token) {
 		const response = await axios.get(`${api_url}/reports/me`, {
 			withCredentials: true,
 			headers: {
+				"Access-Control-Allow-Credentials": true,
 				"Content-Type": "application/json",
 				authorization: `Bearer ${token}`,
 			},
@@ -43,6 +44,7 @@ async function getAllReportsByAdmin(token) {
 		const response = await axios.get(`${api_url}/reports`, {
 			withCredentials: true,
 			headers: {
+				"Access-Control-Allow-Credentials": true,
 				"Content-Type": "application/json",
 				authorization: `Bearer ${token}`,
 			},
@@ -58,6 +60,7 @@ async function getReportData(token, refId) {
 		const response = await axios.get(`${api_url}/reports/${refId}`, {
 			withCredentials: true,
 			headers: {
+				"Access-Control-Allow-Credentials": true,
 				"Content-Type": "application/json",
 				authorization: `Bearer ${token}`,
 			},
@@ -73,6 +76,7 @@ async function submitFeedbackForReport(feedbackData, token) {
 		const response = await axios.post(`${api_url}/reports/feedback`, feedbackData, {
 			withCredentials: true,
 			headers: {
+				"Access-Control-Allow-Credentials": true,
 				"Content-Type": "application/json",
 				authorization: `Bearer ${token}`,
 			},

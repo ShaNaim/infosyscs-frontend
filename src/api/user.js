@@ -5,6 +5,7 @@ export async function getAllUsers(token) {
 		const response = await axios.get(`${api_url}/users`, {
 			withCredentials: true,
 			headers: {
+				"Access-Control-Allow-Credentials": true,
 				"Content-Type": "application/json",
 				authorization: `Bearer ${token}`,
 			},
