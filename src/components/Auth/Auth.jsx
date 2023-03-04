@@ -9,7 +9,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-
+import { useDispatch } from "react-redux";
 import Loading from "../UI/Loading";
 import NotifyAlert from "../UI/NotifyAlert";
 import Authenticate from "./Authenticate";
@@ -21,8 +21,9 @@ export default function Auth({ login = false, isPage = false }) {
 	const [hasError, setHasError] = React.useState(false);
 	const [errorMessage, setErrorMessage] = React.useState(false);
 	const authState = useSelector(selectAuthState);
+	const dispatch = useDispatch();
 	const google = () => {
-		window.open("http://localhost:3050/api/v1/auth/google", "_self");
+		window.open("http://api.infosyscs.org/api/v1/auth/google", "_self");
 	};
 	useEffect(() => {
 		async function getAllData() {
@@ -33,11 +34,13 @@ export default function Auth({ login = false, isPage = false }) {
 		}
 		authState && getAllData();
 	}, [authState]);
+
 	const handleSubmit = async (user) => {
 		try {
 			if (isLogin) {
 				console.log({ login: user });
 				const response = await handleUserLogin(user);
+				console.log({ response });
 				router.push("/dashboard");
 				// console.log({ user });
 			} else {
@@ -51,7 +54,11 @@ export default function Auth({ login = false, isPage = false }) {
 			}
 		} catch (error) {
 			console.log(error);
-			setErrorMessage(handleRequestError(error.response.data));
+			if (error.response?.data) {
+				setErrorMessage(handleRequestError(error.response.data));
+			} else {
+				setErrorMessage("Something Went Wrong , Please Try Again");
+			}
 			setHasError(true);
 		}
 	};

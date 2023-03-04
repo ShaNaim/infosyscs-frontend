@@ -9,7 +9,7 @@ import { deleteCookie, getCookies } from "cookies-next";
 import { useRouter } from "next/router";
 import React from "react";
 import { useDispatch } from "react-redux";
-
+import { selectAuthState } from "@/store/authSlice";
 export default function index({ accessToken, user }) {
 	const router = useRouter();
 	const dispatch = useDispatch();
@@ -68,6 +68,8 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ({
 				user: user.data,
 			})
 		);
+		const auth = store.getState(selectAuthState);
+		console.log(auth);
 		if (cookies.report_auth_token) {
 			const foundAndConnected = await connectToReport(isAuth, cookies.report_auth_token);
 			if (!foundAndConnected) return { props: { accessToken: isAuth, user: user.data } };
@@ -78,7 +80,6 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ({
 		}
 		return { props: { accessToken: isAuth, user: user.data } };
 	} catch (error) {
-		console.log(error);
 		res.setHeader("location", "/login");
 		res.statusCode = 302;
 		res.end();

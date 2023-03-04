@@ -9,7 +9,6 @@ async function handleGetUserData(token) {
 				authorization: `Bearer ${token}`,
 			},
 		});
-		console.log({ response });
 		return response.data;
 	} catch (error) {
 		throw error;
@@ -25,7 +24,6 @@ async function handleGetAdminData(token) {
 				authorization: `Bearer ${token}`,
 			},
 		});
-		console.log({ response });
 		return response.data;
 	} catch (error) {
 		throw error;
@@ -34,13 +32,13 @@ async function handleGetAdminData(token) {
 
 async function handleUserLogin(user) {
 	try {
+		console.log({ api_url, user });
 		const response = await axios.post(`${api_url}/auth/login`, user, {
 			withCredentials: true,
 			headers: {
 				"Content-Type": "application/json",
 			},
 		});
-		console.log({ response });
 		return response.data;
 	} catch (error) {
 		console.error(error.response.data);
@@ -61,7 +59,6 @@ async function handleUserLogout(token) {
 				},
 			}
 		);
-		console.log({ response });
 		return response.data;
 	} catch (error) {
 		console.error(error.response.data);
