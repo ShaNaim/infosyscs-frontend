@@ -1,11 +1,12 @@
 {
-	"name": "InfoSysCS",
+	"name": "InfoSys Coding Solution",
 	"about": "Data Analysis Assistant website , An easy and efficient way for researchers, development program evaluators, and emergency responders to analyze data.",
 	"address": {
-		"address": "26 concored road",
-		"area": "Sadar",
-		"city": "Khulna",
+		"address": "75(Old 131) B.K. Roy Road , Khulna",
+		"area": "",
+		"city": "",
 		"postal": "9100"
 	},
-	"phone": "+8801728420051"
+	"phone": "+8801783182723",
+	"email": "admin@infosyscs.org"
 }

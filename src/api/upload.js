@@ -4,6 +4,7 @@ async function uploadFileForProcessing(formData, type) {
 	try {
 		const response = await axios.post(`${api_url}/files/process-data?type=${type}`, formData, {
 			withCredentials: true,
+			timeout: 0,
 			headers: { "Access-Control-Allow-Credentials": true, "Content-Type": "multipart/form-data" },
 		});
 		return response.data;

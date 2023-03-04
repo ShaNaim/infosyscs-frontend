@@ -96,7 +96,7 @@ export default function TestFooter() {
 									<div>
 										<span> {companyInfo.address.address} </span>
 										<div>
-											{companyInfo.address.area} , {companyInfo.address.city}
+											{companyInfo.address.area} {companyInfo.address.city}
 										</div>
 									</div>
 								</IconLinks>
@@ -109,7 +109,7 @@ export default function TestFooter() {
 								<IconLinks>
 									<EmailIcon />
 									<div>
-										<a href="mailto:support@company.com">support@company.com</a>
+										<a href="mailto:support@company.com">{companyInfo.email}</a>
 									</div>
 								</IconLinks>
 							</Stack>

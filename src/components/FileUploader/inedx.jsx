@@ -84,7 +84,7 @@ export default function FileUpload() {
 
 	return (
 		<Stack direction="column" justifyContent="center" alignItems="center" spacing={1}>
-			<Box sx={{ mt: 8, color: "white" }}>
+			<Box sx={{ mt: 0, color: "white", width: "100%" }}>
 				<form onSubmit={handleSubmit}>
 					<Stack
 						direction={{ xs: "column", md: "row" }}
@@ -133,7 +133,7 @@ export default function FileUpload() {
 						</Button>
 					</Stack>
 				</form>
-				<FormGroup sx={{ margin: "18px 8px 0 24px" }}>
+				<FormGroup sx={{ ml: 3, mt: 1 }}>
 					<FormControlLabel
 						sx={{ width: { xs: "100%", md: "40%" } }}
 						control={

@@ -22,7 +22,7 @@ export default function index() {
 	React.useEffect(() => {
 		async function handleDashboard() {
 			try {
-				if (!authState.accessToken && !authState.user) {
+				if (!authState.accessToken) {
 					router.push("/register");
 				} else {
 					setUser(authState.user);

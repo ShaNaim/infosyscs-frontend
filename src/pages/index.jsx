@@ -1,5 +1,4 @@
 import { handleGetUserData } from "@/api/auth";
-import FileUpload from "@/components/FileUploader/inedx";
 import HeadUI from "@/components/UI/HeadUI";
 import { setAuthState } from "@/store/authSlice";
 import { wrapper } from "@/store/store";
@@ -13,61 +12,55 @@ import TermsAndCondition from "@/components/TermsAndConditions";
 import Link from "next/link";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-
+import FileUpload from "@/components/FileUploader/inedx";
+import Hero from "@/components/Home/Hero";
+import Demo from "@/components/Home/Demo";
+import MainSection from "@/components/Home/MainSection";
+import RightSection from "@/components/Home/RightSection";
 export default function Home() {
 	return (
 		<>
 			<CssBaseline />
 			<HeadUI pageTitle={"Home"}></HeadUI>
 			<React.Fragment>
-				<Container maxWidth="lg">
+				<Box sx={{ p: 1 }}>
 					<Stack
 						sx={{ width: "100%", mb: 3 }}
-						direction="column"
+						direction={{ sx: "column", md: "row" }}
 						justifyContent="center"
 						alignItems="center"
-						spacing={3}
+						spacing={0}
 					>
-						<Typography
-							variant="h6"
-							component="h1"
-							sx={{
-								fontWeight: 700,
-								fontSize: { xs: "18px", md: "24px" },
-								color: "inherit",
-								textDecoration: "none",
-							}}
-						>
-							Qualitative Data Analysis Assistant
-						</Typography>
-						<Typography
-							variant="h6"
-							component="h2"
-							sx={{
-								fontWeight: 600,
-								fontSize: { xs: "16px", md: "20px" },
-								color: "inherit",
-								textDecoration: "none",
-							}}
-						>
-							Thematic Analysis
-						</Typography>
-						<Paper
-							elevation={4}
-							sx={{ bgcolor: "#474747", marginTop: "8%", color: "white", borderRadius: "12px" }}
-						>
+						<Box sx={{ flex: 1 }}></Box>
+						<Box sx={{ flex: 3 }}>
 							<Stack
-								sx={{ width: "100%" }}
+								sx={{ width: "100%", mb: 3 }}
 								direction="column"
 								justifyContent="center"
 								alignItems="center"
-								spacing={3}
+								spacing={1}
 							>
-								<FileUpload />
+								<MainSection />
 							</Stack>
-						</Paper>
+						</Box>
+						<Box sx={{ flex: 1, mr: 2, width: "100%" }}>
+							<Paper
+								elevation={4}
+								sx={{
+									mr: { md: 4, sx: 0 },
+									mt: 1,
+									p: 2,
+									bgcolor: "#474747",
+									color: "white",
+									width: "100%",
+									borderRadius: "12px",
+								}}
+							>
+								<RightSection />
+							</Paper>
+						</Box>
 					</Stack>
-				</Container>
+				</Box>
 			</React.Fragment>
 		</>
 	);

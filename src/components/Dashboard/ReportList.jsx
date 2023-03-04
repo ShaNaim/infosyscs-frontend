@@ -18,12 +18,11 @@ export default function ReportList() {
 		async function getAllData() {
 			if (authState.isLogedUser && authState.accessToken) {
 				const reportList = await getAllReports(authState.accessToken);
-				console.log(reportList);
 				setReportsList(reportList.data);
 			}
 		}
 		getAllData();
-	}, [authState]);
+	}, []);
 	return (
 		<>
 			{reportsList.length !== 0 ? (
