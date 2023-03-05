@@ -13,15 +13,19 @@ export default function EmailInput({ handleClick, isLogin, emailValue, nameValue
 	const [contactError, setContactError] = React.useState(false);
 
 	const handleEmail = () => {
-		if (ValidateEmail(email)) {
-			if (contact && contact.length > 9 && contact.length < 12) {
+		try {
+			if (ValidateEmail(email)) {
 				if (isLogin) return handleClick(email);
-				return handleClick(email, name, contact);
+				if (contact && contact.length > 9 && contact.length < 12) {
+					return handleClick(email, name, contact);
+				} else {
+					setContactError(true);
+				}
 			} else {
-				setContactError(true);
+				setEmailError(true);
 			}
-		} else {
-			setEmailError(true);
+		} catch (error) {
+			console.log(error);
 		}
 	};
 	return (

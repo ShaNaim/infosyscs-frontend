@@ -44,7 +44,7 @@ async function handleUserLogin(user) {
 		});
 		return response.data;
 	} catch (error) {
-		console.error(error.response.data);
+		console.error(error);
 		throw error;
 	}
 }

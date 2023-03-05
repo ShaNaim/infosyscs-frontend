@@ -39,7 +39,6 @@ export default function Auth({ login = false, isPage = false }) {
 		try {
 			if (isLogin) {
 				const response = await handleUserLogin(user);
-
 				dispatch(
 					setAuthState({
 						isLogedUser: true,
