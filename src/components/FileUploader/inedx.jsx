@@ -19,6 +19,7 @@ import { selectAuthState, setAuthState } from "@/store/authSlice";
 import { setReportState } from "@/store/reportSlice";
 
 import { useSelector, useDispatch } from "react-redux";
+
 export default function FileUpload() {
 	const authState = useSelector(selectAuthState);
 	const [file, setFile] = useState(null);

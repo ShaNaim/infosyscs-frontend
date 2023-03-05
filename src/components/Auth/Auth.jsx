@@ -49,7 +49,7 @@ export default function Auth({ login = false, isPage = false }) {
 				);
 				router.push("/dashboard");
 			} else {
-				console.log({ register: user });
+				// console.log({ register: user });
 				const response = await handleUserRegister({
 					...user,
 					passwordConfirmation: user.password,

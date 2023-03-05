@@ -33,11 +33,15 @@ function stringToColor(string) {
 }
 
 function stringAvatar(name) {
+	let nameArray = name.split(" ");
+	let value;
+	if (nameArray.length > 1) value = `${name.split(" ")[0][0]}${name.split(" ")[1][0]}`;
+	else value = `${name.split(" ")[0][0]}`;
 	return {
 		sx: {
 			bgcolor: stringToColor(name),
 		},
-		children: `${name.split(" ")[0][0]}${name.split(" ")[1][0]}`,
+		children: value,
 	};
 }
 

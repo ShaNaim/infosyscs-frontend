@@ -17,6 +17,7 @@ import Hero from "@/components/Home/Hero";
 import Demo from "@/components/Home/Demo";
 import MainSection from "@/components/Home/MainSection";
 import RightSection from "@/components/Home/RightSection";
+import LeftSections from "@/components/Home/LeftSections";
 export default function Home() {
 	return (
 		<>
@@ -28,10 +29,25 @@ export default function Home() {
 						sx={{ width: "100%", mb: 3 }}
 						direction={{ sx: "column", md: "row" }}
 						justifyContent="center"
-						alignItems="center"
+						alignItems="flex-start"
 						spacing={0}
 					>
-						<Box sx={{ flex: 1 }}></Box>
+						<Box sx={{ flex: 1, ml: { xs: 0, md: 2 }, width: "100%" }}>
+							<Paper
+								elevation={4}
+								sx={{
+									mr: { md: 4, sx: 0 },
+									mt: 1,
+									p: 2,
+									bgcolor: "#474747",
+									color: "white",
+									width: "100%",
+									borderRadius: "12px",
+								}}
+							>
+								<LeftSections />
+							</Paper>
+						</Box>
 						<Box sx={{ flex: 3 }}>
 							<Stack
 								sx={{ width: "100%", mb: 3 }}
@@ -43,7 +59,7 @@ export default function Home() {
 								<MainSection />
 							</Stack>
 						</Box>
-						<Box sx={{ flex: 1, mr: 2, width: "100%" }}>
+						<Box sx={{ flex: 1, mr: { xs: 0, md: 2 }, width: "100%" }}>
 							<Paper
 								elevation={4}
 								sx={{

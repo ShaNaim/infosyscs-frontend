@@ -8,6 +8,7 @@ export default function Register({ handleSubmit, isLogin }) {
 	const [isEmail, setisEmail] = React.useState(true);
 	const [email, setEmail] = React.useState("");
 	const [name, setName] = React.useState("");
+	const [contact, setContact] = React.useState("");
 	const [password, setPassword] = React.useState("");
 
 	const handleClick = () => {
@@ -16,13 +17,14 @@ export default function Register({ handleSubmit, isLogin }) {
 			name: name,
 			password: password,
 			passwordConfirmation: password,
+			phone: contact,
 		});
 	};
 
-	const handleEmail = (emailValue, nameValue) => {
+	const handleEmail = (emailValue, nameValue, contactValue) => {
 		setEmail(emailValue);
 		setName(nameValue);
-
+		setContact(contactValue);
 		setisEmail(false);
 	};
 
