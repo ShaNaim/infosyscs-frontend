@@ -88,16 +88,18 @@ export default function FileUpload() {
 			<Box sx={{ mt: 0, color: "white", width: "100%" }}>
 				<form onSubmit={handleSubmit}>
 					<Stack
-						direction={{ xs: "column", md: "row" }}
+						direction={{ xs: "column", lg: "row" }}
 						justifyContent="center"
 						alignItems="center"
-						spacing={{ xs: 4, sm: 12 }}
+						spacing={{ xs: 4, lg: 1 }}
+						sx={{ width: { xs: "100%", sm: "100%" } }}
 					>
 						<Stack
 							direction="column"
-							justifyContent="flex-start"
-							alignItems="flex-start"
+							justifyContent="center"
+							alignItems="center"
 							spacing={0}
+							sx={{ width: { xs: "100%", sm: "80%", lg: "40%" } }}
 						>
 							<Button
 								disabled={loading}
@@ -105,7 +107,7 @@ export default function FileUpload() {
 								component="label"
 								sx={{
 									p: 2,
-									width: { xs: "280px", sm: "280px" },
+									width: { xs: "90%", sm: "80%", sm: "60%" },
 									height: { xs: "56px", sm: "56px" },
 									backgroundColor: "#5ce1e681",
 								}}
@@ -115,23 +117,34 @@ export default function FileUpload() {
 								<input type="file" multiple name="file" onChange={handleFileChange} />
 							</Button>
 						</Stack>
-						<BasicSelect items={fileTypes} type={type} setType={setType} />
-						<Button
-							disabled={loading}
-							sx={{
-								p: 2,
-								width: { xs: "280px", sm: "280px" },
-								height: { xs: "56px", sm: "56px" },
-								backgroundColor: "#5ce1e681",
-								mb: 1,
-							}}
-							variant="contained"
-							type="submit"
-							color="primary"
-							size="large"
+						<Box sx={{ width: { xs: "90%", sm: "50%", lg: "20%" } }}>
+							<BasicSelect items={fileTypes} type={type} setType={setType} />
+						</Box>
+						<Stack
+							direction="column"
+							justifyContent="center"
+							alignItems="center"
+							spacing={0}
+							sx={{ width: { xs: "100%", sm: "80%", lg: "40%" } }}
 						>
-							Upload
-						</Button>
+							<Button
+								disabled={loading}
+								sx={{
+									p: 2,
+									width: { xs: "90%", sm: "60%" },
+									height: { xs: "56px", sm: "56px" },
+									backgroundColor: "#5ce1e681",
+									m: { xs: 0, sm: 0 },
+									mb: 1,
+								}}
+								variant="contained"
+								type="submit"
+								color="primary"
+								size="large"
+							>
+								Upload
+							</Button>
+						</Stack>
 					</Stack>
 				</form>
 				<FormGroup sx={{ ml: 3, mt: 1 }}>

@@ -12,6 +12,8 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import FeedBackDetails from "@/components/Report/FeedBackDetails";
+import { DownLoadPDF } from "@/components/Report/DownLoadPDF";
+import ReportPreview from "@/components/Report/ReportPreview";
 const Report = () => {
 	const router = useRouter();
 	const { reportId } = router.query;
@@ -45,9 +47,13 @@ const Report = () => {
 					>
 						<Stack
 							direction="column"
-							alignItems="flex-start"
+							alignItems="center"
 							justifyContent="flex-start"
 							spacing={2}
+							sx={{
+								padding: "32px 12px 32px 12px",
+								width: "100%",
+							}}
 						>
 							<Typography
 								component="div"
@@ -61,9 +67,31 @@ const Report = () => {
 							>
 								{reportData.name}
 							</Typography>
-							<Paper elevation={4} sx={{ p: 3 }}>
-								<DataDisplay reportList={reportData.detail} />
-							</Paper>
+
+							<Stack
+								sx={{
+									width: "100%",
+								}}
+								direction="column"
+								alignItems="center"
+								justifyContent="center"
+								spacing={2}
+							>
+								<DownLoadPDF reportName={reportData.name} displayData={reportData.detail} />
+								<Typography
+									component="span"
+									variant="h6"
+									sx={{
+										textTransform: "capitalize",
+										fontWeight: "400",
+										textAlign: "center",
+										width: "100%",
+									}}
+								>
+									Preview
+								</Typography>
+								<ReportPreview reportList={reportData.detail} />
+							</Stack>
 							{reportData.feedBack ? <></> : <FeedBack reportId={reportId} />}
 						</Stack>
 					</Box>

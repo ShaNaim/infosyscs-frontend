@@ -54,7 +54,7 @@ export default function FeedBack({ reportId }) {
 					reaction === "" ? defaultColor : reaction === "dislike" ? disLikeColor : likeColor
 				}`,
 				borderRadius: "8px",
-				width: { xs: "100%", lg: "60%" },
+				width: { xs: "100%", sm: "80%", md: "30%" },
 			}}
 		>
 			<Typography

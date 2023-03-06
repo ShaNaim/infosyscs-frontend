@@ -15,6 +15,7 @@ import Typography from "@mui/material/Typography";
 import FileUpload from "@/components/FileUploader/inedx";
 import Hero from "@/components/Home/Hero";
 import Demo from "@/components/Home/Demo";
+import { FunctionalComponent } from "../Report/DownLoadPDF";
 export default function MainSection() {
 	return (
 		<>
@@ -64,10 +65,10 @@ export default function MainSection() {
 						component="h2"
 						sx={{
 							fontWeight: 600,
-							fontSize: { xs: "16px", md: "20px" },
+							fontSize: { xs: "22px", md: "20px" },
 							color: "inherit",
 							textDecoration: "none",
-							mt: 1,
+							mt: "20px",
 						}}
 					>
 						Thematic Analysis
