@@ -23,7 +23,7 @@ export default function ReportBody({ data }) {
 					{data.cost}
 				</TableCell>
 				<TableCell sx={{ fontSize: "12px" }} align="left">
-					{dayjs(data.createdAt).format("MMM D, YYYY")}
+					{dayjs(data.createdAt).format("h:mm A - MMM D, YYYY")}
 				</TableCell>
 				<TableCell sx={{ fontSize: "12px" }} align="left">
 					{data.user ? data.user.email : "No User"}

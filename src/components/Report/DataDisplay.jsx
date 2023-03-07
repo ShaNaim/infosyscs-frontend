@@ -1,6 +1,4 @@
 import React from "react";
-import Stack from "@mui/material/Stack";
-import { Directions } from "@mui/icons-material";
 
 export default function DataDisplay({ reportList, smallFont }) {
 	return (

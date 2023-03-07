@@ -50,8 +50,7 @@ export default function ReportList() {
 									<TableCell align="right">{row.file.numberOfFiles}</TableCell>
 									<TableCell align="right">{row.file.filesType}</TableCell>
 									<TableCell align="right">
-										{" "}
-										{dayjs(row.createdAt).format("MMM D, YYYY")}{" "}
+										{dayjs(row.createdAt).format("h:mm A - MMM D, YYYY")}
 									</TableCell>
 									<TableCell align="right"> </TableCell>
 									<TableCell align="right">

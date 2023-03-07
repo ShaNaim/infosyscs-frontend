@@ -1,10 +1,8 @@
-import React from "react";
-import { Paper, Box, Stack, Typography } from "@mui/material";
-
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
-import ThumbDownOffAltIcon from "@mui/icons-material/ThumbDownOffAlt";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
-import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
+import { Paper, Typography } from "@mui/material";
+import React from "react";
+
 export default function FeedBackDetails({ data }) {
 	return (
 		<>

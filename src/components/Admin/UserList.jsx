@@ -54,9 +54,9 @@ export default function UsersList() {
 									<TableCell align="left">{row.method ? row.method : "email"} </TableCell>
 									<TableCell align="left">{dayjs(row.createdAt).format("MMM D, YYYY")}</TableCell>
 									<TableCell align="left">
-										<Link href={`/report/${row.refId}`}>
-											<Button variant="text">View</Button>
-										</Link>
+										{/* <Link href={`/report/${row.refId}`}> */}
+										<Button variant="text">View</Button>
+										{/* </Link> */}
 									</TableCell>
 								</TableRow>
 							))}

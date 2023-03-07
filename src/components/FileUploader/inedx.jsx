@@ -1,5 +1,7 @@
 import { handleRequestError } from "@/api/auth";
 import { uploadFileForProcessing } from "@/api/upload";
+import { selectAuthState } from "@/store/authSlice";
+import { setReportState } from "@/store/reportSlice";
 import { checkAndFormateFiles } from "@/utils";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -7,18 +9,17 @@ import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormGroup from "@mui/material/FormGroup";
 import Stack from "@mui/material/Stack";
-import React, { useState } from "react";
+import Typography from "@mui/material/Typography";
 import Link from "next/link";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import AuthModal from "../Auth/AuthModal";
 import BasicSelect from "../UI/BasicSelect";
 import Loading from "../UI/Loading";
 import NotifyAlert from "../UI/NotifyAlert";
-import ReportCompletePromt from "./ReportCompletePromt";
-import Typography from "@mui/material/Typography";
-import { selectAuthState, setAuthState } from "@/store/authSlice";
-import { setReportState } from "@/store/reportSlice";
 import FileNameDialog from "./FileNameDialog";
-import { useSelector, useDispatch } from "react-redux";
+import ReportCompletePromt from "./ReportCompletePromt";
 
 export default function FileUpload() {
 	const authState = useSelector(selectAuthState);
@@ -47,8 +48,23 @@ export default function FileUpload() {
 	const handleFileChange = (event) => {
 		setFile(event.target.files);
 	};
-	const submitName = (name) => {
+	const submitName = async (name) => {
 		console.log(name);
+		const formData = checkAndFormateFiles(file, type, name);
+		setLoading(true);
+		const response = await uploadFileForProcessing(formData, type);
+		dispatch(
+			setReportState({
+				hasDisconnectedReport: true,
+				reportRef: response.data.reportRef,
+				reportId: response.data.reportId,
+			})
+		);
+		setLoading(false);
+		if (!authState.isLogedUser) {
+			setOpenModal(true);
+		}
+		setShowDownloadLink(true);
 	};
 
 	const handleSubmit = async (event) => {
@@ -59,23 +75,7 @@ export default function FileUpload() {
 				setErrorMessage("Please Read and Accept the Terms and Conditions");
 				return;
 			}
-			const formData = checkAndFormateFiles(file, type);
-			// setLoading(true);
 			setOpenNameDialog(true);
-			return;
-			// const response = await uploadFileForProcessing(formData, type);
-			// dispatch(
-			// 	setReportState({
-			// 		hasDisconnectedReport: true,
-			// 		reportRef: response.data.reportRef,
-			// 		reportId: response.data.reportId,
-			// 	})
-			// );
-			// setLoading(false);
-			// if (!authState.isLogedUser) {
-			// 	setOpenModal(true);
-			// }
-			// setShowDownloadLink(true);
 		} catch (error) {
 			setLoading(false);
 			if (error.fileError) {

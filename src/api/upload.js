@@ -1,12 +1,19 @@
 import axios from "axios";
 import api_url from "./url";
-async function uploadFileForProcessing(formData, type) {
+async function uploadFileForProcessing(formData, type, name) {
 	try {
-		const response = await axios.post(`${api_url}/files/process-data?type=${type}`, formData, {
-			withCredentials: true,
-			timeout: 0,
-			headers: { "Access-Control-Allow-Credentials": true, "Content-Type": "multipart/form-data" },
-		});
+		const response = await axios.post(
+			`${api_url}/files/process-data?type=${type}&reportName=${name}`,
+			formData,
+			{
+				withCredentials: true,
+				timeout: 0,
+				headers: {
+					"Access-Control-Allow-Credentials": true,
+					"Content-Type": "multipart/form-data",
+				},
+			}
+		);
 		return response.data;
 	} catch (error) {
 		throw error;

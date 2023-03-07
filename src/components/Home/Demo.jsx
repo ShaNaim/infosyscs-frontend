@@ -1,11 +1,13 @@
-import React from "react";
-import { Button, Paper, Box, Stack, Alert, Typography } from "@mui/material";
+import { downloadDemo } from "@/api/upload";
+import sleep from "@/utils/sleep.util";
+import DownloadIcon from "@mui/icons-material/Download";
+import { Alert, Box, Button, Stack, Typography } from "@mui/material";
 import Checkbox from "@mui/material/Checkbox";
 import IconButton from "@mui/material/IconButton";
-import { downloadDemo } from "@/api/upload";
-import DownloadIcon from "@mui/icons-material/Download";
-import sleep from "@/utils/sleep.util";
+import React from "react";
+
 import Loading from "../UI/Loading";
+
 export default function Demo() {
 	const [demoOne, setDemoOne] = React.useState(null);
 	const [demoTwo, setDemoTwo] = React.useState(null);

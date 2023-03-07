@@ -1,11 +1,9 @@
-import { handleUserLogout } from "@/api/auth";
 import Loading from "@/components/UI/Loading";
 import { setAuthState } from "@/store/authSlice";
-import { wrapper } from "@/store/store";
-import { deleteCookie, getCookies } from "cookies-next";
 import { useRouter } from "next/router";
 import React from "react";
 import { useDispatch } from "react-redux";
+
 export default function logout() {
 	const router = useRouter();
 	const dispatch = useDispatch();

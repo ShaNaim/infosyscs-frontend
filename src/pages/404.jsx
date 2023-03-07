@@ -1,5 +1,6 @@
-import React from "react";
 import HeadUI from "@/components/UI/HeadUI";
+import React from "react";
+
 export default function NotFoundPage() {
 	return (
 		<>
