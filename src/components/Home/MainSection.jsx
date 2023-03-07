@@ -42,7 +42,28 @@ export default function MainSection() {
 					width: { xs: "100%", md: "90%" },
 				}}
 			>
-				<Demo />
+				<Stack
+					sx={{ width: "100%" }}
+					direction="column"
+					justifyContent="center"
+					alignItems="center"
+					spacing={3}
+				>
+					<Typography
+						variant="h6"
+						component="h2"
+						sx={{
+							fontWeight: 600,
+							fontSize: { xs: "22px", md: "20px" },
+							color: "inherit",
+							textDecoration: "none",
+						}}
+					>
+						Try Demo
+					</Typography>
+
+					<Demo />
+				</Stack>
 			</Paper>
 			<Paper
 				elevation={4}

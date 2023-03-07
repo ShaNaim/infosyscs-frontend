@@ -13,6 +13,28 @@ async function uploadFileForProcessing(formData, type) {
 	}
 }
 
+async function downloadDemo(selectedFile = 2, isReport = false) {
+	try {
+		const response = await axios.get(
+			`${api_url}/files/demo/download?report=${isReport}&fileId=${selectedFile}`,
+			{
+				withCredentials: true,
+				timeout: 0,
+				headers: {
+					"Access-Control-Allow-Credentials": true,
+					"Access-Control-Allow-Origin": true,
+					"Content-Type": "multipart/form-data",
+				},
+			}
+		);
+		console.log({ response: response.data });
+		return response.data;
+	} catch (error) {
+		console.log({ error });
+		throw error;
+	}
+}
+
 async function checkCookie() {
 	try {
 		const response = await axios.post(
@@ -33,4 +55,5 @@ async function checkCookie() {
 module.exports = {
 	uploadFileForProcessing,
 	checkCookie,
+	downloadDemo,
 };

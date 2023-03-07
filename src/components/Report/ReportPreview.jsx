@@ -1,5 +1,5 @@
 import React from "react";
-import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
 import Paper from "@mui/material/Paper";
 export default function ReportPreview({ reportList, smallFont }) {
 	return (
@@ -12,18 +12,25 @@ export default function ReportPreview({ reportList, smallFont }) {
 			}}
 			elevation={12}
 		>
-			{reportList.map((report, index) => {
-				return (
-					<div key={index}>
-						<h2 style={{ fontSize: "12px", textTransform: "capitalize", userSelect: "none" }}>
-							{report.heading} :
-						</h2>
-						<p style={{ fontSize: "8px", paddingLeft: "8px", userSelect: "none" }}>
-							{report.details}
-						</p>
-					</div>
-				);
-			})}
+			<Stack
+				direction={{ xs: "column", md: "column" }}
+				justifyContent="center"
+				alignItems="center"
+				spacing={2}
+				sx={{ width: "100%", p: 3 }}
+			>
+				<span>Thematic Analysis</span>
+				{reportList.map((report, index) => {
+					return (
+						<div key={index}>
+							<h2 style={{ fontSize: "12px", textTransform: "capitalize", userSelect: "none" }}>
+								{report.heading} :
+							</h2>
+							<p style={{ fontSize: "8px", userSelect: "none" }}>{report.details}</p>
+						</div>
+					);
+				})}
+			</Stack>
 		</Paper>
 	);
 }

@@ -70,39 +70,39 @@ export default function FeedBack({ reportId }) {
 				Tell Us Your Thoughts
 			</Typography>
 			<ReactionButton reset={reset} setReaction={setReaction} openComment={setOpen} />
-			<Collapse in={open} timeout="auto" unmountOnExit>
-				<TextField
-					id="feedback-comments"
-					label="Comments"
-					multiline
-					rows={4}
-					sx={{ width: "100%", minWidth: "40vw" }}
+			{/* <Collapse in={open} timeout="auto" unmountOnExit> */}
+			<TextField
+				id="feedback-comments"
+				label="Comments"
+				multiline
+				rows={4}
+				sx={{ width: "100%" }}
+				color="primary"
+				value={comment}
+				onChange={(e) => setComment(e.target.value)}
+			/>
+			<Stack
+				direction="row"
+				justifyContent="flex-end"
+				alignItems="center"
+				spacing={8}
+				sx={{ mt: 2 }}
+			>
+				<Button
+					sx={{
+						backgroundColor: "#37bdc2",
+						color: "white",
+					}}
+					variant="contained"
 					color="primary"
-					value={comment}
-					onChange={(e) => setComment(e.target.value)}
-				/>
-				<Stack
-					direction="row"
-					justifyContent="flex-end"
-					alignItems="center"
-					spacing={8}
-					sx={{ mt: 2 }}
+					size="medium"
+					onClick={onSubmit}
 				>
-					<Button
-						sx={{
-							backgroundColor: "#37bdc2",
-							color: "white",
-						}}
-						variant="contained"
-						color="primary"
-						size="medium"
-						onClick={onSubmit}
-					>
-						send
-						<SendIcon sx={{ mx: 1 }} />
-					</Button>
-				</Stack>
-			</Collapse>
+					send
+					<SendIcon sx={{ mx: 1 }} />
+				</Button>
+			</Stack>
+			{/* </Collapse> */}
 		</Box>
 	);
 }

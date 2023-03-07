@@ -1,20 +1,33 @@
 import React from "react";
+import Stack from "@mui/material/Stack";
+import { Directions } from "@mui/icons-material";
 
 export default function DataDisplay({ reportList, smallFont }) {
 	return (
-		<div style={{ padding: "16px", width: "100%", height: "100%" }}>
-			{reportList.map((report, index) => {
-				return (
-					<div key={index}>
-						<h2 style={{ fontSize: smallFont ? "20px" : "20px", textTransform: "capitalize" }}>
-							{report.heading} :
-						</h2>
-						<p style={{ fontSize: smallFont ? "16px" : "18px", paddingLeft: "20px" }}>
-							{report.details}
-						</p>
-					</div>
-				);
-			})}
+		<div
+			style={{
+				padding: "12px 64px 12px 64px",
+				width: "100%",
+				height: "100%",
+				display: "flex",
+				flexDirection: "column",
+				justifyContent: "center",
+				alignItems: "center",
+			}}
+		>
+			<span style={{ fontSize: "26px", margin: "36px 0 0 0" }}>Thematic Analysis</span>
+			<div>
+				{reportList.map((report, index) => {
+					return (
+						<div style={{ marginTop: "48px" }} key={index}>
+							<h2 style={{ fontSize: smallFont ? "20px" : "20px", textTransform: "capitalize" }}>
+								{report.heading} :
+							</h2>
+							<p style={{ fontSize: smallFont ? "16px" : "18px" }}>{report.details}</p>
+						</div>
+					);
+				})}
+			</div>
 		</div>
 	);
 }

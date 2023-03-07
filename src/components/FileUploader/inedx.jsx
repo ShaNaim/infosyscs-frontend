@@ -17,17 +17,20 @@ import ReportCompletePromt from "./ReportCompletePromt";
 import Typography from "@mui/material/Typography";
 import { selectAuthState, setAuthState } from "@/store/authSlice";
 import { setReportState } from "@/store/reportSlice";
-
+import FileNameDialog from "./FileNameDialog";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function FileUpload() {
 	const authState = useSelector(selectAuthState);
 	const [file, setFile] = useState(null);
 	const [hasError, setHasError] = useState(false);
-	const [acceptTerms, setAcceptTerms] = useState(false);
 	const [errorMessage, setErrorMessage] = useState("");
+	const [acceptTerms, setAcceptTerms] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const [openModal, setOpenModal] = useState(false);
+
+	const [openNameDialog, setOpenNameDialog] = useState(false);
+
 	const [showDownloadLink, setShowDownloadLink] = useState(false);
 	const [type, setType] = useState("");
 	const dispatch = useDispatch();
@@ -44,6 +47,9 @@ export default function FileUpload() {
 	const handleFileChange = (event) => {
 		setFile(event.target.files);
 	};
+	const submitName = (name) => {
+		console.log(name);
+	};
 
 	const handleSubmit = async (event) => {
 		try {
@@ -54,20 +60,22 @@ export default function FileUpload() {
 				return;
 			}
 			const formData = checkAndFormateFiles(file, type);
-			setLoading(true);
-			const response = await uploadFileForProcessing(formData, type);
-			dispatch(
-				setReportState({
-					hasDisconnectedReport: true,
-					reportRef: response.data.reportRef,
-					reportId: response.data.reportId,
-				})
-			);
-			setLoading(false);
-			if (!authState.isLogedUser) {
-				setOpenModal(true);
-			}
-			setShowDownloadLink(true);
+			// setLoading(true);
+			setOpenNameDialog(true);
+			return;
+			// const response = await uploadFileForProcessing(formData, type);
+			// dispatch(
+			// 	setReportState({
+			// 		hasDisconnectedReport: true,
+			// 		reportRef: response.data.reportRef,
+			// 		reportId: response.data.reportId,
+			// 	})
+			// );
+			// setLoading(false);
+			// if (!authState.isLogedUser) {
+			// 	setOpenModal(true);
+			// }
+			// setShowDownloadLink(true);
 		} catch (error) {
 			setLoading(false);
 			if (error.fileError) {
@@ -207,6 +215,7 @@ export default function FileUpload() {
 				</>
 			)}
 			<AuthModal setOpen={setOpenModal} open={openModal} />
+			<FileNameDialog setOpen={setOpenNameDialog} open={openNameDialog} submitName={submitName} />
 			<NotifyAlert open={hasError} setOpen={setHasError} type="error" message={errorMessage} />
 		</Stack>
 	);
