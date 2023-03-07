@@ -4,7 +4,7 @@ import Modal from "@mui/material/Modal";
 import Stack from "@mui/material/Stack";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-
+import sleep from "@/utils/sleep.util";
 const style = {
 	position: "absolute",
 	top: "50%",
@@ -14,11 +14,23 @@ const style = {
 
 export default function () {
 	const [open, setOpen] = useState(false);
+	const [loadingText, setLoadingText] = useState("Loading......");
 	const handleClose = () => {
+		setLoadingText("Loading......");
 		setOpen(false);
 	};
 	useEffect(() => {
 		setOpen(true);
+		console.log("Loadin out");
+		async function renderLoadin() {
+			await sleep(4000);
+			setLoadingText("Preparing your files..");
+			await sleep(2000);
+			setLoadingText("Processing your files..");
+			await sleep(2000);
+			setLoadingText("Please Don't Close the window");
+		}
+		renderLoadin();
 		return () => {
 			handleClose();
 		};
@@ -45,6 +57,7 @@ export default function () {
 						<div></div>
 						<div></div>
 					</div>
+					<span style={{ color: "whitesmoke", fontSize: "18px" }}> {loadingText} </span>
 				</Stack>
 			</Box>
 		</Modal>

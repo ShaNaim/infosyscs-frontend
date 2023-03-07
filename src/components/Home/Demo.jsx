@@ -5,9 +5,9 @@ import { Alert, Box, Button, Stack, Typography } from "@mui/material";
 import Checkbox from "@mui/material/Checkbox";
 import IconButton from "@mui/material/IconButton";
 import React from "react";
-
+import fileDownload from "js-file-download";
 import Loading from "../UI/Loading";
-
+import { getFileName } from "@/utils/index";
 export default function Demo() {
 	const [demoOne, setDemoOne] = React.useState(null);
 	const [demoTwo, setDemoTwo] = React.useState(null);
@@ -21,8 +21,10 @@ export default function Demo() {
 			if (demoOne && !demoTwo) selectedFile = 1;
 			if (!demoOne && demoTwo) selectedFile = 2;
 			if (demoOne && demoTwo) selectedFile = 3;
-
-			await downloadDemo(selectedFile, true);
+			const name = getFileName(selectedFile, true);
+			const file = await downloadDemo(selectedFile, true);
+			console.log({ file });
+			fileDownload(file, name);
 		} catch (error) {
 			console.log(error);
 		}
@@ -31,14 +33,16 @@ export default function Demo() {
 	const handleUploadClick = async () => {
 		if (!demoOne && !demoTwo) return setError(true);
 		setLoading(true);
-		await sleep(5000);
+		await sleep(10000);
 		setLoading(false);
 		setDownloadReady(true);
 	};
 
 	const handleFileDownload = async (selectedFile) => {
 		try {
-			await downloadDemo(selectedFile, false);
+			const name = getFileName(selectedFile, false);
+			const file = await downloadDemo(selectedFile, false);
+			fileDownload(file, name);
 			setDownloadReady(false);
 		} catch (error) {
 			console.log(error);

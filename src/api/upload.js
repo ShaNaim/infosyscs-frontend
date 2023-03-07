@@ -27,6 +27,7 @@ async function downloadDemo(selectedFile = 2, isReport = false) {
 			{
 				withCredentials: true,
 				timeout: 0,
+				responseType: "arraybuffer",
 				headers: {
 					"Access-Control-Allow-Credentials": true,
 					"Access-Control-Allow-Origin": true,
@@ -34,7 +35,7 @@ async function downloadDemo(selectedFile = 2, isReport = false) {
 				},
 			}
 		);
-		console.log({ response: response.data });
+		console.log({ response: response });
 		return response.data;
 	} catch (error) {
 		console.log({ error });

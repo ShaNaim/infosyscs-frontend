@@ -20,8 +20,27 @@ function ValidateEmail(input) {
 	return false;
 }
 
+function getFileName(value, isReport) {
+	if (isReport) {
+		if (value === 1) {
+			return "Patowarikandi_Women_Group_Report.pdf";
+		} else if (value === 2) {
+			return "Teaching_Aid_Recreate_Report.pdf";
+		} else {
+			return "Combined_Report.pdf";
+		}
+	} else {
+		if (value === 1) {
+			return "Patowarikandi_Women_Group.pdf";
+		} else {
+			return "Teaching_Aid_Recreate.pdf";
+		}
+	}
+}
+
 module.exports = {
 	makeid,
 	checkAndFormateFiles,
 	ValidateEmail,
+	getFileName,
 };
