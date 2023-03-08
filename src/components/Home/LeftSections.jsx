@@ -1,17 +1,46 @@
 import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
+import Paper from "@mui/material/Paper";
 import React from "react";
-
+import YoutubeEmbed from "./YoutubeEmbedded";
 export default function LeftSections() {
 	return (
 		<>
-			<Box sx={{ p: 1, width: "100%" }}>
-				<iframe
-					width="100%"
-					height="100%"
-					src="https://www.youtube.com/embed?v=a546lxxJIhE&ab_channel=LastWeekTonight"
-					frameborder="0"
-					allowfullscreen
-				></iframe>
+			<Box sx={{ width: "100%" }}>
+				<Stack
+					sx={{ width: "100%" }}
+					direction="column"
+					justifyContent="center"
+					alignItems="center"
+					spacing={4}
+				>
+					<Paper
+						elevation={4}
+						sx={{
+							mt: 1,
+							p: 1,
+							bgcolor: "#474747",
+							color: "white",
+							width: "100%",
+							borderRadius: "12px",
+						}}
+					>
+						<YoutubeEmbed embedId="yRMM4eZad6Q" />
+					</Paper>
+					<Paper
+						elevation={4}
+						sx={{
+							mt: 1,
+							p: 1,
+							bgcolor: "#474747",
+							color: "white",
+							width: "100%",
+							borderRadius: "12px",
+						}}
+					>
+						<YoutubeEmbed embedId="8cMr6_8n_9E" />
+					</Paper>
+				</Stack>
 			</Box>
 		</>
 	);

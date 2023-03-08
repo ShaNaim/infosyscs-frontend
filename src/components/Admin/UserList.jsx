@@ -1,28 +1,12 @@
-import { getAllUsers } from "@/api/user";
-import { selectAuthState } from "@/store/authSlice";
 import Button from "@mui/material/Button";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import dayjs from "dayjs";
-import Link from "next/link";
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 
 import BasicTable from "../UI/BasicTable";
 import ListSkeleton from "../UI/ListSkeleton";
 
-export default function UsersList() {
-	const [reportsList, setReportsList] = useState([]);
-	const authState = useSelector(selectAuthState);
-	useEffect(() => {
-		async function getAllData() {
-			if (authState.isLogedUser && authState.accessToken) {
-				const reportList = await getAllUsers(authState.accessToken);
-				setReportsList(reportList.data);
-			}
-		}
-		getAllData();
-	}, [authState]);
+export default function UsersList({ reportsList }) {
 	return (
 		<>
 			{reportsList.length !== 0 ? (

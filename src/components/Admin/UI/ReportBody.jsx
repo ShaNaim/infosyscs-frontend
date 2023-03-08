@@ -1,13 +1,12 @@
 import Button from "@mui/material/Button";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
-import Box from "@mui/material/Box";
 import dayjs from "dayjs";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
-import Collapse from "@mui/material/Collapse";
-import Typography from "@mui/material/Typography";
+import { useState } from "react";
+
 import ReportDetails from "./ReportDetails";
+
 export default function ReportBody({ data }) {
 	const [showDetails, setShowDetails] = useState(false);
 	return (

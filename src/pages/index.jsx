@@ -23,20 +23,7 @@ export default function Home() {
 						spacing={0}
 					>
 						<Box sx={{ flex: 1, ml: { xs: 0, md: 2 }, width: "100%" }}>
-							<Paper
-								elevation={4}
-								sx={{
-									mr: { md: 4, sx: 0 },
-									mt: 1,
-									p: 2,
-									bgcolor: "#474747",
-									color: "white",
-									width: "100%",
-									borderRadius: "12px",
-								}}
-							>
-								<LeftSections />
-							</Paper>
+							<LeftSections />
 						</Box>
 						<Box sx={{ flex: 3 }}>
 							<Stack
