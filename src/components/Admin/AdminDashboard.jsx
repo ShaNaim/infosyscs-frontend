@@ -1,8 +1,9 @@
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
 import React from "react";
-
+import Tooltip from "@mui/material/Tooltip";
 const calculateCost = (activeList, inactiveList) => {
 	let activeCost = activeList.reduce((a, b) => {
 		console.log({ a, b });
@@ -29,7 +30,17 @@ export default function AdminDashboard({ activeList, inactiveList, userCount }) 
 	}, []);
 	return (
 		<>
-			<span style={{ fontSize: "18px", fontWeight: "600" }}>Dashboard</span>
+			<Typography
+				sx={{
+					fontSize: "18px",
+					fontWeight: "600",
+					my: 2,
+					color: "white",
+					textAlign: "center",
+				}}
+			>
+				Dashboard
+			</Typography>
 			<Stack
 				direction={{ xs: "column", md: "row" }}
 				justifyContent="space-between"
@@ -81,29 +92,33 @@ export default function AdminDashboard({ activeList, inactiveList, userCount }) 
 					>
 						<Paper elevation={2} sx={{ p: 1, width: { xs: "100%" } }}>
 							Total Cost :
-							<span
-								style={{
-									fontSize: "24px",
-									fontWeight: "bold",
-									color: "#3bbd668f",
-									marginLeft: "16px",
-								}}
-							>
-								{calculation.totalCost.toFixed(6)}
-							</span>
+							<Tooltip title={calculation.totalCost}>
+								<span
+									style={{
+										fontSize: "24px",
+										fontWeight: "bold",
+										color: "#3bbd668f",
+										marginLeft: "16px",
+									}}
+								>
+									{calculation.totalCost.toFixed(4)}
+								</span>
+							</Tooltip>
 						</Paper>
 						<Paper elevation={2} sx={{ p: 1, width: { xs: "100%" } }}>
-							Inactive Report Cost :
-							<span
-								style={{
-									fontSize: "24px",
-									fontWeight: "bold",
-									color: "#ca5959d2",
-									marginLeft: "16px",
-								}}
-							>
-								{calculation.loss.toFixed(6)}
-							</span>
+							Total Payment Pending :
+							<Tooltip title={calculation.loss}>
+								<span
+									style={{
+										fontSize: "24px",
+										fontWeight: "bold",
+										color: "#ca5959d2",
+										marginLeft: "16px",
+									}}
+								>
+									{calculation.loss.toFixed(4)}
+								</span>
+							</Tooltip>
 						</Paper>
 					</Stack>
 				</Box>
@@ -117,56 +132,22 @@ export default function AdminDashboard({ activeList, inactiveList, userCount }) 
 						<Paper elevation={2} sx={{ p: 1, width: { xs: "100%" } }}>
 							Profit
 							<br />
-							<span
-								style={{
-									fontSize: "32px",
-									fontWeight: "bold",
-									color: "goldenrod",
-									marginLeft: "32px",
-								}}
-							>
-								{calculation.profit.toFixed(6)}
-							</span>
+							<Tooltip title={calculation.profit}>
+								<span
+									style={{
+										fontSize: "32px",
+										fontWeight: "bold",
+										color: "goldenrod",
+										marginLeft: "32px",
+									}}
+								>
+									{calculation.profit.toFixed(4)}
+								</span>
+							</Tooltip>
 						</Paper>
 					</Stack>
 				</Box>
 			</Stack>
 		</>
 	);
-}
-
-{
-	/* <TextField
-sx={{ width: "100%" }}
-id="user-name"
-label="Total Active Users"
-value={"user.name"}
-variant="filled"
-/>
-<TextField
-sx={{ width: "100%" }}
-id="user-email"
-label="Total Reports Generated"
-value={"user.email"}
-variant="filled"
-disabled
-/> */
-}
-{
-	/* <TextField
-	sx={{ width: "100%" }}
-	id="user-phone"
-	label="Total Cost"
-	value={"user.phone"}
-	variant="filled"
-	disabled
-	/>
-<TextField
-	color="success"
-	sx={{ width: "100%" }}
-	id="user-science"
-	label="Inactive Report Cost"
-	value={dayjs("user.createdAt").format("MMM D, YYYY")}
-	variant="filled"
-	/> */
 }

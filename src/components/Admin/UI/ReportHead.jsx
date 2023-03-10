@@ -1,7 +1,5 @@
 import TableCell from "@mui/material/TableCell";
 
-import React, { useEffect, useState } from "react";
-
 export default function ReportHead() {
 	return (
 		<>

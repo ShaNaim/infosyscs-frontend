@@ -25,7 +25,10 @@ export default function LeftSections() {
 							borderRadius: "12px",
 						}}
 					>
-						<YoutubeEmbed embedId="yRMM4eZad6Q" />
+						{/* <YoutubeEmbed embedId="yRMM4eZad6Q" /> */}
+						<Box sx={{ height: "280px", width: "100%" }}>
+							<YoutubeEmbed embedId="yRMM4eZad6Q" />
+						</Box>
 					</Paper>
 					<Paper
 						elevation={4}
@@ -38,7 +41,10 @@ export default function LeftSections() {
 							borderRadius: "12px",
 						}}
 					>
-						<YoutubeEmbed embedId="8cMr6_8n_9E" />
+						{/* <YoutubeEmbed embedId="8cMr6_8n_9E" /> */}
+						<Box sx={{ height: "280px", width: "100%" }}>
+							<YoutubeEmbed embedId="8cMr6_8n_9E" />
+						</Box>
 					</Paper>
 				</Stack>
 			</Box>

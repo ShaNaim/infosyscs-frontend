@@ -1,18 +1,13 @@
-import { handleGetUserData } from "@/api/auth";
 import { connectToReport } from "@/api/report";
 import Home from "@/components/Dashboard/Home";
 import HeadUI from "@/components/UI/HeadUI";
 import Loading from "@/components/UI/Loading";
-import { setAuthState } from "@/store/authSlice";
-import { wrapper } from "@/store/store";
-import { deleteCookie, getCookies } from "cookies-next";
-import { useSelector } from "react-redux";
+import { selectAuthState } from "@/store/authSlice";
+import { selectReportState, setReportState } from "@/store/reportSlice";
 import { useRouter } from "next/router";
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import { useDispatch } from "react-redux";
-import { selectAuthState } from "@/store/authSlice";
-import { setReportState, selectReportState } from "@/store/reportSlice";
 export default function index() {
 	const [user, setUser] = React.useState({});
 	const router = useRouter();

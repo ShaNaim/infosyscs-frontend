@@ -25,7 +25,6 @@ possible experience, and we look forward to working with you. Thank you for choo
 platform."
 			/>
 			<meta name="viewport" content="width=device-width, initial-scale=1" />
-			<link rel="icon" href="/favicon.svg" />
 			{children}
 		</Head>
 	);

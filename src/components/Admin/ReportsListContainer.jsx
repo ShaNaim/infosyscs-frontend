@@ -16,7 +16,7 @@ export default function ReportsListContainer({ activeList, inactiveList, loading
 					sx={{ width: "100%" }}
 				>
 					<ListContainer
-						title={"Active Reports " + "| " + activeList.length}
+						title={"Paid Reports " + "| " + activeList.length}
 						styleProp={{ mt: 4, width: { xs: "100%", md: "100%" } }}
 					>
 						{activeList.length !== 0 ? (
@@ -27,7 +27,7 @@ export default function ReportsListContainer({ activeList, inactiveList, loading
 					</ListContainer>
 
 					<ListContainer
-						title={"Inactive Reports " + "| " + inactiveList.length}
+						title={"Pending Payment Reports " + "| " + inactiveList.length}
 						styleProp={{ mt: 4, width: { xs: "100%", md: "100%" } }}
 					>
 						{inactiveList.length !== 0 ? (

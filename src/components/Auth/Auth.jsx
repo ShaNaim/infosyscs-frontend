@@ -14,6 +14,7 @@ import { useDispatch } from "react-redux";
 import Loading from "../UI/Loading";
 import NotifyAlert from "../UI/NotifyAlert";
 import Authenticate from "./Authenticate";
+import Link from "next/link";
 export default function Auth({ login = false, isPage = false }) {
 	const router = useRouter();
 	const [isLogin, setIsLogin] = React.useState(login);
@@ -23,8 +24,10 @@ export default function Auth({ login = false, isPage = false }) {
 	const authState = useSelector(selectAuthState);
 	const dispatch = useDispatch();
 	const google = () => {
-		window.open("http://api.infosyscs.org/api/v1/auth/google", "_self");
+		// window.open("https://api.infosyscs.org/api/v1/auth/google", "_self");
+		return window.open("http://localhost:3050/api/v1/auth/google", "_self");
 	};
+
 	useEffect(() => {
 		async function getAllData() {
 			if (authState.isLogedUser && authState.accessToken) {
@@ -132,7 +135,8 @@ export default function Auth({ login = false, isPage = false }) {
 								<span>OR</span>
 							</div>
 						</Stack>
-						{/* <Link href="/api/login" passHref> */}
+
+						{/* <Link href="http://localhost:3050/api/v1/auth/google"> */}
 						<Button
 							sx={{
 								width: { xs: "80%", md: "40%", lg: "50%" },
@@ -145,6 +149,7 @@ export default function Auth({ login = false, isPage = false }) {
 							variant="contained"
 							color={isLogin ? "primary" : "success"}
 							onClick={google}
+							disabled
 						>
 							<Image
 								src="/google.png"

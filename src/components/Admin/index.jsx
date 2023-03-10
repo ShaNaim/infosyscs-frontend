@@ -80,7 +80,7 @@ export default function AdminHome() {
 						/>
 					</Paper>
 					<Box>
-						<ListContainer title="User">
+						<ListContainer title="Users">
 							<UsersList reportsList={reportsList} />
 						</ListContainer>
 						<Box sx={{ width: "100%", mt: { xs: 4, md: 0 } }}>

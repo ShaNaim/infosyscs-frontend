@@ -1,11 +1,8 @@
 import Toolbar from "@mui/material/Toolbar";
 import React from "react";
-
-import data from "./CompanyInfo.json";
 import TestFooter from "./TestFooter";
 
 export default function Footer() {
-	const companyInfo = data;
 	return (
 		<>
 			<Toolbar

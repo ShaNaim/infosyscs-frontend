@@ -23,7 +23,7 @@ import ReportCompletePromt from "./ReportCompletePromt";
 
 export default function FileUpload() {
 	const authState = useSelector(selectAuthState);
-	const [file, setFile] = useState(null);
+	const [file, setFile] = useState("");
 	const [hasError, setHasError] = useState(false);
 	const [errorMessage, setErrorMessage] = useState("");
 	const [acceptTerms, setAcceptTerms] = useState(false);
@@ -49,22 +49,38 @@ export default function FileUpload() {
 		setFile(event.target.files);
 	};
 	const submitName = async (name) => {
-		console.log(name);
-		const formData = checkAndFormateFiles(file, type, name);
-		setLoading(true);
-		const response = await uploadFileForProcessing(formData, type);
-		dispatch(
-			setReportState({
-				hasDisconnectedReport: true,
-				reportRef: response.data.reportRef,
-				reportId: response.data.reportId,
-			})
-		);
-		setLoading(false);
-		if (!authState.isLogedUser) {
-			setOpenModal(true);
+		try {
+			console.log(name);
+			const formData = checkAndFormateFiles(file, type);
+			if (!authState.isLogedUser) {
+				return setOpenModal(true);
+			}
+			setLoading(true);
+			const response = await uploadFileForProcessing(formData, type, name);
+			dispatch(
+				setReportState({
+					hasDisconnectedReport: true,
+					reportRef: response.data.reportRef,
+					reportId: response.data.reportId,
+				})
+			);
+			setLoading(false);
+
+			setShowDownloadLink(true);
+		} catch (error) {
+			console.log({ error });
+			setLoading(false);
+			if (error.fileError) {
+				setHasError(true);
+				setErrorMessage(error.message);
+			} else if (error?.response?.data?.errors) {
+				setHasError(true);
+				setErrorMessage(handleRequestError(error.response.data));
+			} else {
+				setHasError(true);
+				setErrorMessage("Something Went Wrong , Please Try Again");
+			}
 		}
-		setShowDownloadLink(true);
 	};
 
 	const handleSubmit = async (event) => {
@@ -78,16 +94,7 @@ export default function FileUpload() {
 			setOpenNameDialog(true);
 		} catch (error) {
 			setLoading(false);
-			if (error.fileError) {
-				setHasError(true);
-				setErrorMessage(error.message);
-			} else if (error?.response?.data?.errors) {
-				setHasError(true);
-				setErrorMessage(handleRequestError(error.response.data));
-			} else {
-				setHasError(true);
-				setErrorMessage("Something Went Wrong , Please Try Again");
-			}
+			console.error(error);
 		}
 	};
 

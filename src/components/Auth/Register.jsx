@@ -1,8 +1,8 @@
-import React from "react";
 import Typography from "@mui/material/Typography";
-import { ValidateEmail } from "@/utils";
-import PasswordInput from "./PasswordInput";
+import React from "react";
+
 import EmailInput from "./EmailInput";
+import PasswordInput from "./PasswordInput";
 
 export default function Register({ handleSubmit, isLogin }) {
 	const [isEmail, setisEmail] = React.useState(true);

@@ -1,4 +1,3 @@
-import Button from "@mui/material/Button";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import dayjs from "dayjs";
@@ -21,7 +20,7 @@ export default function UsersList({ reportsList }) {
 							<TableCell align="left">Phone</TableCell>
 							<TableCell align="left">Register Methood</TableCell>
 							<TableCell align="left">Created At</TableCell>
-							<TableCell align="left">Action</TableCell>
+							{/* <TableCell align="left">Action</TableCell> */}
 						</>
 					}
 					body={
@@ -37,11 +36,11 @@ export default function UsersList({ reportsList }) {
 									<TableCell align="left">{row.phone}</TableCell>
 									<TableCell align="left">{row.method ? row.method : "email"} </TableCell>
 									<TableCell align="left">{dayjs(row.createdAt).format("MMM D, YYYY")}</TableCell>
-									<TableCell align="left">
-										{/* <Link href={`/report/${row.refId}`}> */}
+									{/* <Link href={`/report/${row.refId}`}> */}
+									{/* </Link> */}
+									{/* <TableCell align="left">
 										<Button variant="text">View</Button>
-										{/* </Link> */}
-									</TableCell>
+									</TableCell> */}
 								</TableRow>
 							))}
 						</>

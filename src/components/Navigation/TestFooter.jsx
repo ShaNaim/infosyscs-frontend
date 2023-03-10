@@ -33,10 +33,9 @@ export default function TestFooter() {
 							sx={{ width: "100%", height: "100%" }}
 						>
 							<div>
-								<LinkPoints url="/about">Home</LinkPoints>
+								<LinkPoints url="/">Home</LinkPoints>
 								<LinkPoints url="/about">About</LinkPoints>
-								<LinkPoints url="#">Pricing</LinkPoints>
-								<LinkPoints url="/about">T & C</LinkPoints>
+								<LinkPoints url="/terms-and-conditions">T & C</LinkPoints>
 								<LinkPoints url="/admin">Admin</LinkPoints>
 							</div>
 							<div>

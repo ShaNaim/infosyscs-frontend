@@ -1,17 +1,11 @@
 import { handleGetAdminData } from "@/api/auth";
-import { connectToReport } from "@/api/report";
-import Home from "@/components/Dashboard/Home";
+import AdminHome from "@/components/Admin";
 import HeadUI from "@/components/UI/HeadUI";
 import Loading from "@/components/UI/Loading";
-import { setAuthState } from "@/store/authSlice";
-import { wrapper } from "@/store/store";
-import { deleteCookie, getCookies } from "cookies-next";
+import { selectAuthState } from "@/store/authSlice";
 import { useRouter } from "next/router";
 import React from "react";
-import { useDispatch } from "react-redux";
-import { selectAuthState } from "@/store/authSlice";
-import AdminHome from "@/components/Admin";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function index() {
 	const [user, setUser] = React.useState({});

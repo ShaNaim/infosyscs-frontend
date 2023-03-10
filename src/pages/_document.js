@@ -7,6 +7,7 @@ export default function Document() {
 				<meta name="site name" content="Information System Coding Solution" />
 				<meta name="site name" content="InfoSys Coding Solution" />
 				<meta name="site name" content="InfoSysCS" />
+				<link rel="icon" href="/favicon.svg" />
 				<meta name="site name" content="infosyscs" />
 				<meta
 					name="description"

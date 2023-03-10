@@ -1,10 +1,12 @@
-import React from "react";
-import TextField from "@mui/material/TextField";
+import { ValidateEmail } from "@/utils";
 import Box from "@mui/material/Box";
-import { boxSxObject, inputSxObject } from "./styles";
-import FunctionButton from "./FunctionButton";
-import { ValidateEmail, validNumberInput } from "@/utils";
 import InputAdornment from "@mui/material/InputAdornment";
+import TextField from "@mui/material/TextField";
+import React from "react";
+
+import FunctionButton from "./FunctionButton";
+import { boxSxObject, inputSxObject } from "./styles";
+
 export default function EmailInput({ handleClick, isLogin, emailValue, nameValue, contactValue }) {
 	const [email, setEmail] = React.useState(emailValue ? emailValue : "");
 	const [name, setName] = React.useState(nameValue ? nameValue : "");

@@ -1,6 +1,9 @@
 import { getReportData } from "@/api/report";
+import FileDetails from "@/components/Admin/UI/FileDetails";
+import ReportInfo from "@/components/Admin/UI/ReportInfo";
 import DataDisplay from "@/components/Report/DataDisplay";
 import FeedBack from "@/components/Report/FeedBack";
+import FeedBackDetails from "@/components/Report/FeedBackDetails";
 import HeadUI from "@/components/UI/HeadUI";
 import Loading from "@/components/UI/Loading";
 import { selectAuthState } from "@/store/authSlice";
@@ -11,9 +14,7 @@ import Typography from "@mui/material/Typography";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import FeedBackDetails from "@/components/Report/FeedBackDetails";
-import ReportInfo from "@/components/Admin/UI/ReportInfo";
-import FileDetails from "@/components/Admin/UI/FileDetails";
+
 const ReportDetails = () => {
 	const router = useRouter();
 	const { reportId } = router.query;

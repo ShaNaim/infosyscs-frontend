@@ -1,16 +1,19 @@
 import { downloadDemo } from "@/api/upload";
+import { getFileName } from "@/utils";
 import sleep from "@/utils/sleep.util";
-import DownloadIcon from "@mui/icons-material/Download";
 import { Alert, Box, Button, Stack, Typography } from "@mui/material";
 import Checkbox from "@mui/material/Checkbox";
-import IconButton from "@mui/material/IconButton";
-import React from "react";
 import fileDownload from "js-file-download";
+import React from "react";
+import IconButton from "@mui/material/IconButton";
+import DownloadIcon from "@mui/icons-material/Download";
+import FileUploadIcon from "@mui/icons-material/FileUpload";
+
 import Loading from "../UI/Loading";
-import { getFileName } from "@/utils/index";
+
 export default function Demo() {
-	const [demoOne, setDemoOne] = React.useState(null);
-	const [demoTwo, setDemoTwo] = React.useState(null);
+	const [demoOne, setDemoOne] = React.useState("");
+	const [demoTwo, setDemoTwo] = React.useState("");
 	const [error, setError] = React.useState(false);
 	const [loading, setLoading] = React.useState(false);
 	const [downloadReady, setDownloadReady] = React.useState(false);
@@ -149,13 +152,13 @@ export default function Demo() {
 						onClick={handleReportDownload}
 						sx={{ backgroundColor: "#5ce1e681" }}
 					>
-						Download Report
+						Buy Me a Coffee & Download
 					</Button>
 				) : (
 					<Button
 						size="sm"
 						variant="contained"
-						endIcon={<DownloadIcon />}
+						endIcon={<FileUploadIcon />}
 						onClick={handleUploadClick}
 						sx={{ backgroundColor: "#5ce1e681" }}
 					>

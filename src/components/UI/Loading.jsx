@@ -21,13 +21,12 @@ export default function () {
 	};
 	useEffect(() => {
 		setOpen(true);
-		console.log("Loadin out");
 		async function renderLoadin() {
 			await sleep(4000);
 			setLoadingText("Preparing your files..");
 			await sleep(2000);
 			setLoadingText("Processing your files..");
-			await sleep(2000);
+			await sleep(6000);
 			setLoadingText("Please Don't Close the window");
 		}
 		renderLoadin();

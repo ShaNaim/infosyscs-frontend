@@ -1,7 +1,7 @@
 import React from "react";
 import Stack from "@mui/material/Stack";
 import Paper from "@mui/material/Paper";
-export default function ReportPreview({ reportList, smallFont }) {
+export default function ReportPreview({ reportList }) {
 	return (
 		<Paper
 			sx={{

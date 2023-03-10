@@ -1,8 +1,8 @@
-import React from "react";
-import Box from "@mui/material/Box";
 import Auth from "@/components/Auth/Auth";
-import Head from "next/head";
 import HeadUI from "@/components/UI/HeadUI";
+import Box from "@mui/material/Box";
+import React from "react";
+
 export default function index() {
 	return (
 		<>

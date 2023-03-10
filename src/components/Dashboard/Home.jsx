@@ -7,15 +7,8 @@ import React from "react";
 
 import FileUpload from "../FileUploader/inedx";
 import ReportList from "./ReportList";
-
+import { Typography } from "@mui/material";
 export default function Home({ user }) {
-	// React.useEffect(async () => {
-	// 	// const reportsList = await getAllReports(isAuth);
-	// 	// if (!reportsList)
-	// 	// 	return {
-	// 	// 		props: { accessToken: isAuth, user: user.data, reportsList: [foundAndConnected] },
-	// 	// 	};
-	// }, []);
 	console.log({ user });
 	return (
 		<>
@@ -91,12 +84,18 @@ export default function Home({ user }) {
 							</Paper>
 						</Stack>
 					</Paper>
-					<Paper elevation={2} sx={{ p: 3, backgroundColor: "#474747" }}>
-						<span
-							style={{ fontSize: "18px", fontWeight: "600", marginBottom: "8px", color: "white" }}
+					<Paper elevation={2} sx={{ p: 3, backgroundColor: "#474747", borderRadius: "12px" }}>
+						<Typography
+							sx={{
+								fontSize: "18px",
+								fontWeight: "600",
+								marginBottom: "24px",
+								color: "white",
+								textAlign: "center",
+							}}
 						>
-							Create New Report
-						</span>
+							Thematic Analysis
+						</Typography>
 						<FileUpload />
 					</Paper>
 				</Stack>
@@ -109,8 +108,18 @@ export default function Home({ user }) {
 					}}
 				>
 					{/* <ReportCompletePromt /> */}
-					<span style={{ fontSize: "18px", fontWeight: "600", marginBottom: "8px" }}>Reports</span>
-
+					{/* <span style={{ fontSize: "18px", fontWeight: "600", marginBottom: "8px" }}></span> */}
+					<Typography
+						sx={{
+							fontSize: "18px",
+							fontWeight: "600",
+							marginBottom: "24px",
+							color: "black",
+							textAlign: "center",
+						}}
+					>
+						Reports
+					</Typography>
 					<ReportList />
 				</Box>
 			</Stack>

@@ -45,16 +45,7 @@ function NavBar({ isLogedUser }) {
 							onClick={handleOpenNavMenu}
 							color="inherit"
 						>
-							{/* <MenuIcon /> */}
-							<Image
-								// style={{
-								// 	borderRadius: "50%",
-								// }}
-								src="/navicon.gif"
-								alt="Picture of the Company"
-								width={50}
-								height={50}
-							/>
+							<Image src="/navicon.gif" alt="Picture of the Company" width={50} height={50} />
 						</IconButton>
 					</Box>
 					<Link href="/">
@@ -84,16 +75,7 @@ function NavBar({ isLogedUser }) {
 							onClick={handleOpenNavMenu}
 							color="inherit"
 						>
-							{/* <MenuIcon /> */}
-							<Image
-								// style={{
-								// 	borderRadius: "50%",
-								// }}
-								src="/navicon.gif"
-								alt="Picture of the Company"
-								width={40}
-								height={40}
-							/>
+							<Image src="/navicon.gif" alt="Picture of the Company" width={40} height={40} />
 						</IconButton>
 						<Menu
 							id="menu-appbar"

@@ -1,19 +1,17 @@
 import { getReportData } from "@/api/report";
-import DataDisplay from "@/components/Report/DataDisplay";
+import { DownLoadPDF } from "@/components/Report/DownLoadPDF";
 import FeedBack from "@/components/Report/FeedBack";
+import ReportPreview from "@/components/Report/ReportPreview";
 import HeadUI from "@/components/UI/HeadUI";
 import Loading from "@/components/UI/Loading";
 import { selectAuthState } from "@/store/authSlice";
 import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import FeedBackDetails from "@/components/Report/FeedBackDetails";
-import { DownLoadPDF } from "@/components/Report/DownLoadPDF";
-import ReportPreview from "@/components/Report/ReportPreview";
+
 const Report = () => {
 	const router = useRouter();
 	const { reportId } = router.query;
