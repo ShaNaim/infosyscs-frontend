@@ -1,8 +1,7 @@
 import HeadUI from "@/components/UI/HeadUI";
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
-import { useRouter } from "next/router";
+import Link from "next/link";
 export default function NotFoundPage() {
-	const router = useRouter();
 	return (
 		<>
 			<HeadUI pageTitle={"Page Not Found"} />
@@ -26,11 +25,8 @@ export default function NotFoundPage() {
 								alignItems="flex-end"
 								spacing={0}
 							>
-								<Button
-									onClick={() => router.back()}
-									sx={{ backgroundColor: "#5CE1E6", color: "black", px: 2, py: 0 }}
-								>
-									Go Back
+								<Button sx={{ backgroundColor: "#5CE1E6", color: "black", px: 2, py: 0 }}>
+									<Link href="/">Go Home</Link>
 								</Button>
 							</Stack>
 						</Stack>

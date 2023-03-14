@@ -149,7 +149,7 @@ export default function Auth({ login = false, isPage = false }) {
 							variant="contained"
 							color={isLogin ? "primary" : "success"}
 							onClick={google}
-							disabled
+							// disabled
 						>
 							<Image
 								src="/google.png"

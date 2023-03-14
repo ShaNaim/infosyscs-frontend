@@ -1,4 +1,5 @@
 import { connectToReport } from "@/api/report";
+import { handleGetUserData } from "@/api/auth";
 import Home from "@/components/Dashboard/Home";
 import HeadUI from "@/components/UI/HeadUI";
 import Loading from "@/components/UI/Loading";
@@ -7,7 +8,7 @@ import { selectReportState, setReportState } from "@/store/reportSlice";
 import { useRouter } from "next/router";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import { getCookies } from "cookies-next";
 export default function index() {
 	const [user, setUser] = React.useState({});
 	const router = useRouter();
@@ -18,8 +19,10 @@ export default function index() {
 		async function handleDashboard() {
 			try {
 				if (!authState.accessToken) {
-					router.push("/register");
+					return router.push("/register");
 				} else {
+					const userData = await handleGetUserData(authState.accessToken);
+					if (userData.data.id !== authState.user.id) return router.push("/register");
 					setUser(authState.user);
 					if (reportState.reportRef) {
 						await connectToReport(authState.accessToken, reportState.reportRef);
@@ -33,7 +36,8 @@ export default function index() {
 					}
 				}
 			} catch (error) {
-				console.error(error);
+				console.error({ error: error });
+				setUser(null);
 			}
 		}
 		handleDashboard();
@@ -54,6 +58,12 @@ export default function index() {
 		</>
 	);
 }
+
+export const getServerSideProps = async ({ req, res }) => {
+	const accessCookies = getCookies({ req, res });
+	console.log({ accessCookies });
+	return { props: { accessToken: false } };
+};
 
 // export const getServerSideProps = wrapper.getServerSideProps((store) => async ({ req, res }) => {
 // 	try {

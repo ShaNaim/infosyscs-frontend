@@ -12,6 +12,7 @@ async function handleGetUserData(token) {
 		});
 		return response.data;
 	} catch (error) {
+		console.log({ js: error });
 		throw error;
 	}
 }

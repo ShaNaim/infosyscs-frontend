@@ -29,7 +29,6 @@ meaningful conclusions from your data. We are committed to providing our users w
 possible experience, and we look forward to working with you. Thank you for choosing our
 platform."
 				/>
-				<meta name="viewport" content="width=device-width, initial-scale=1" />
 			</Head>
 			<body>
 				<Main />
