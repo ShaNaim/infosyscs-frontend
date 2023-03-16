@@ -44,14 +44,14 @@ export default function Home({ user }) {
 										sx={{ width: "100%" }}
 										id="user-name"
 										label="Name"
-										value={user.name ?? ""}
+										value={(user && user.name) ?? ""}
 										variant="filled"
 									/>
 									<TextField
 										sx={{ width: "100%" }}
 										id="user-email"
 										label="Email"
-										value={user.email ?? ""}
+										value={(user && user.email) ?? ""}
 										variant="filled"
 										disabled
 									/>
@@ -68,7 +68,7 @@ export default function Home({ user }) {
 										sx={{ width: "100%" }}
 										id="user-phone"
 										label="Phone"
-										value={user.phone ?? "Not Provided"}
+										value={(user && user.phone) ?? "Not Provided"}
 										variant="filled"
 										disabled
 									/>
@@ -76,7 +76,7 @@ export default function Home({ user }) {
 										sx={{ width: "100%" }}
 										id="user-science"
 										label="User Science"
-										value={dayjs(user.createdAt).format("MMM D, YYYY") ?? ""}
+										value={dayjs(user && user.createdAt).format("MMM D, YYYY") ?? ""}
 										variant="filled"
 									/>
 								</Stack>

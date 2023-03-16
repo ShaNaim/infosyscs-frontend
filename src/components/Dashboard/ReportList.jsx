@@ -13,19 +13,22 @@ import ListSkeleton from "../UI/ListSkeleton";
 
 export default function ReportList() {
 	const [reportsList, setReportsList] = useState([]);
+	const [loadList, setLoadList] = useState(false);
 	const authState = useSelector(selectAuthState);
 	useEffect(() => {
 		async function getAllData() {
 			if (authState.isLogedUser && authState.accessToken) {
 				const reportList = await getAllReports(authState.accessToken);
 				setReportsList(reportList.data);
+				console.log({ data: reportList.data });
+				setLoadList(true);
 			}
 		}
 		getAllData();
-	}, []);
+	}, [authState]);
 	return (
 		<>
-			{reportsList.length !== 0 ? (
+			{loadList ? (
 				<BasicTable
 					head={
 						<>

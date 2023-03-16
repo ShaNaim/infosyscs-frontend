@@ -5,7 +5,6 @@ async function handleGetUserData(token) {
 		const response = await axios.get(`${api_url}/auth/me`, {
 			withCredentials: true,
 			headers: {
-				"Access-Control-Allow-Credentials": true,
 				"Content-Type": "application/json",
 				authorization: `Bearer ${token}`,
 			},

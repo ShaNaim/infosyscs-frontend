@@ -7,8 +7,10 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import React from "react";
-
+import { getCookies } from "cookies-next";
 export default function Home() {
+	const cook = getCookies();
+	console.log({ cook });
 	return (
 		<>
 			<CssBaseline />

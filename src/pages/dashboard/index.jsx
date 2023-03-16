@@ -7,25 +7,36 @@ import { selectAuthState } from "@/store/authSlice";
 import { selectReportState, setReportState } from "@/store/reportSlice";
 import { useRouter } from "next/router";
 import React from "react";
+import { setAuthState } from "@/store/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { getCookies } from "cookies-next";
-export default function index() {
-	const [user, setUser] = React.useState({});
+import { wrapper } from "@/store/store";
+export default function index({ googleAccessToken }) {
+	const [loading, isLoading] = React.useState(true);
 	const router = useRouter();
 	const dispatch = useDispatch();
 	const authState = useSelector(selectAuthState);
 	const reportState = useSelector(selectReportState);
+
 	React.useEffect(() => {
-		async function handleDashboard() {
+		async function handleDashboard(token) {
+			console.log(token);
 			try {
-				if (!authState.accessToken) {
-					return router.push("/register");
+				if (!token) {
+					// return router.push("/register");
 				} else {
-					const userData = await handleGetUserData(authState.accessToken);
-					if (userData.data.id !== authState.user.id) return router.push("/register");
-					setUser(authState.user);
+					isLoading(false);
+					const userData = await handleGetUserData(token);
+					console.log(userData);
+					dispatch(
+						setAuthState({
+							isLogedUser: true,
+							accessToken: token,
+							user: userData.data,
+						})
+					);
 					if (reportState.reportRef) {
-						await connectToReport(authState.accessToken, reportState.reportRef);
+						await connectToReport(token, reportState.reportRef);
 						dispatch(
 							setReportState({
 								hasDisconnectedReport: false,
@@ -37,18 +48,22 @@ export default function index() {
 				}
 			} catch (error) {
 				console.error({ error: error });
-				setUser(null);
+				isLoading(true);
 			}
 		}
-		handleDashboard();
-	}, [authState, reportState]);
+		if (authState.isLogedUser) {
+			handleDashboard(authState.accessToken);
+		} else {
+			if (googleAccessToken) handleDashboard(googleAccessToken);
+		}
+	}, [reportState, googleAccessToken]);
 
 	return (
 		<>
 			<HeadUI pageTitle={"Dashboard"} />
 			<div>
-				{user ? (
-					<Home user={user} />
+				{!loading ? (
+					<Home user={authState.user} />
 				) : (
 					<>
 						<Loading />
@@ -59,52 +74,21 @@ export default function index() {
 	);
 }
 
-export const getServerSideProps = async ({ req, res }) => {
-	const accessCookies = getCookies({ req, res });
-	console.log({ accessCookies });
-	return { props: { accessToken: false } };
-};
-
-// export const getServerSideProps = wrapper.getServerSideProps((store) => async ({ req, res }) => {
-// 	try {
-// 		let isAuth = "";
-// 		const cookies = getCookies({ req, res });
-// 		if (!cookies.accessToken) {
-// 			res.setHeader("location", "/login");
-// 			res.statusCode = 302;
-// 			res.end();
-// 			return;
-// 		}
-// 		isAuth = cookies.accessToken;
-// 		const user = await handleGetUserData(isAuth);
-// 		if (!user) {
-// 			res.setHeader("location", "/login");
-// 			res.statusCode = 302;
-// 			res.end();
-// 			return;
-// 		}
-// 		await store.dispatch(
-// 			setAuthState({
-// 				isLogedUser: true,
-// 				accessToken: cookies.accessToken,
-// 				user: user.data,
-// 			})
-// 		);
-// 		const auth = store.getState(selectAuthState);
-// 		console.log(auth);
-// 		if (cookies.report_auth_token) {
-// 			const foundAndConnected = await connectToReport(isAuth, cookies.report_auth_token);
-// 			if (!foundAndConnected) return { props: { accessToken: isAuth, user: user.data } };
-// 			deleteCookie("report_auth_token", { req, res });
-// 			return {
-// 				props: { accessToken: isAuth, user: user.data },
-// 			};
-// 		}
-// 		return { props: { accessToken: isAuth, user: user.data } };
-// 	} catch (error) {
-// 		res.setHeader("location", "/login");
-// 		res.statusCode = 302;
-// 		res.end();
-// 		return;
-// 	}
-// });
+export const getServerSideProps = wrapper.getServerSideProps((store) => async ({ req, res }) => {
+	try {
+		const accessCookies = getCookies({ req, res });
+		if (!accessCookies.accessToken) {
+			res.setHeader("location", "/");
+			res.statusCode = 302;
+			res.end();
+			return;
+		}
+		return { props: { googleAccessToken: accessCookies.accessToken } };
+	} catch (error) {
+		console.log({ error: error.response?.data });
+		res.setHeader("location", "/login");
+		res.statusCode = 302;
+		res.end();
+		return;
+	}
+});
