@@ -20,7 +20,6 @@ export default function ReportList() {
 			if (authState.isLogedUser && authState.accessToken) {
 				const reportList = await getAllReports(authState.accessToken);
 				setReportsList(reportList.data);
-				console.log({ data: reportList.data });
 				setLoadList(true);
 			}
 		}

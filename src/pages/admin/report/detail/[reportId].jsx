@@ -24,14 +24,13 @@ const ReportDetails = () => {
 		async function getAllData() {
 			if (authState.isLogedUser && authState.accessToken) {
 				const reportList = await getReportData(authState.accessToken, String(reportId));
-				console.log(reportList.data);
 				setReportData(reportList.data);
 			}
 		}
 		try {
 			reportId && getAllData();
 		} catch (error) {
-			console.log(error);
+			console.error(error);
 		}
 	}, [reportId]);
 

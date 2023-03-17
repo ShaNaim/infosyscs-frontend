@@ -15,6 +15,7 @@ import Loading from "../UI/Loading";
 import NotifyAlert from "../UI/NotifyAlert";
 import Authenticate from "./Authenticate";
 import Link from "next/link";
+import GoogleIcon from "@mui/icons-material/Google";
 export default function Auth({ login = false, isPage = false }) {
 	const router = useRouter();
 	const [isLogin, setIsLogin] = React.useState(login);
@@ -24,8 +25,8 @@ export default function Auth({ login = false, isPage = false }) {
 	const authState = useSelector(selectAuthState);
 	const dispatch = useDispatch();
 	const google = () => {
-		// window.open("https://api.infosyscs.org/api/v1/auth/google", "_self");
-		return window.open("http://localhost:3050/api/v1/auth/google", "_self");
+		window.open(`${process.env.NEXT_PUBLIC_API_URL}/auth/google`, "_self");
+		// return window.open("http://localhost:3050/api/v1/auth/google", "_self");
 	};
 
 	useEffect(() => {
@@ -51,7 +52,6 @@ export default function Auth({ login = false, isPage = false }) {
 				);
 				router.push("/dashboard");
 			} else {
-				// console.log({ register: user });
 				const response = await handleUserRegister({
 					...user,
 					passwordConfirmation: user.password,
@@ -67,7 +67,7 @@ export default function Auth({ login = false, isPage = false }) {
 				router.push("/dashboard");
 			}
 		} catch (error) {
-			console.log(error);
+			console.error(error);
 			if (error.response?.data) {
 				setErrorMessage(handleRequestError(error.response.data));
 			} else {
@@ -135,8 +135,6 @@ export default function Auth({ login = false, isPage = false }) {
 								<span>OR</span>
 							</div>
 						</Stack>
-
-						{/* <Link href="http://localhost:3050/api/v1/auth/google"> */}
 						<Button
 							sx={{
 								width: { xs: "80%", md: "40%", lg: "50%" },
@@ -149,18 +147,10 @@ export default function Auth({ login = false, isPage = false }) {
 							variant="contained"
 							color={isLogin ? "primary" : "success"}
 							onClick={google}
-							// disabled
+							startIcon={<GoogleIcon />}
 						>
-							<Image
-								src="/google.png"
-								alt="Picture of the author"
-								width={20}
-								height={20}
-								style={{ marginRight: "10px" }}
-							/>
 							Sign {isLogin ? "In" : "Up"} With Google
 						</Button>
-						{/* </Link> */}
 					</Stack>
 					<NotifyAlert open={hasError} setOpen={setHasError} type="error" message={errorMessage} />
 				</Box>

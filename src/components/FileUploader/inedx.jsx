@@ -50,7 +50,6 @@ export default function FileUpload() {
 	};
 	const submitName = async (name) => {
 		try {
-			console.log(name);
 			const formData = checkAndFormateFiles(file, type);
 			if (!authState.isLogedUser) {
 				return setOpenModal(true);
@@ -68,7 +67,7 @@ export default function FileUpload() {
 
 			setShowDownloadLink(true);
 		} catch (error) {
-			console.log({ error });
+			console.error(error);
 			setLoading(false);
 			if (error.fileError) {
 				setHasError(true);

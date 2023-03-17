@@ -20,14 +20,13 @@ export default function index({ googleAccessToken }) {
 
 	React.useEffect(() => {
 		async function handleDashboard(token) {
-			console.log(token);
 			try {
 				if (!token) {
 					// return router.push("/register");
 				} else {
 					isLoading(false);
 					const userData = await handleGetUserData(token);
-					console.log(userData);
+
 					dispatch(
 						setAuthState({
 							isLogedUser: true,
@@ -85,7 +84,7 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ({
 		}
 		return { props: { googleAccessToken: accessCookies.accessToken } };
 	} catch (error) {
-		console.log({ error: error.response?.data });
+		console.error({ error: error.response?.data });
 		res.setHeader("location", "/login");
 		res.statusCode = 302;
 		res.end();

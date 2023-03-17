@@ -5,12 +5,11 @@ import Loading from "@/components/UI/Loading";
 import { selectAuthState } from "@/store/authSlice";
 import { useRouter } from "next/router";
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 export default function index() {
 	const [user, setUser] = React.useState({});
 	const router = useRouter();
-	const dispatch = useDispatch();
 	const authState = useSelector(selectAuthState);
 	React.useEffect(() => {
 		async function handleAdmin() {
@@ -19,7 +18,6 @@ export default function index() {
 					router.push("/404");
 				} else {
 					const admin = await handleGetAdminData(authState.accessToken);
-					console.log({ admin });
 					if (admin) {
 						setUser(admin.data);
 					}
@@ -46,38 +44,3 @@ export default function index() {
 		</>
 	);
 }
-
-// export const getServerSideProps = wrapper.getServerSideProps((store) => async ({ req, res }) => {
-// 	try {
-// 		let isAuth = "";
-// 		const cookies = getCookies({ req, res });
-// 		if (!cookies.accessToken) {
-// 			res.setHeader("location", "/404");
-// 			res.statusCode = 302;
-// 			res.end();
-// 			return;
-// 		}
-// 		isAuth = cookies.accessToken;
-// 		const user = await handleGetAdminData(isAuth);
-// 		if (!user) {
-// 			res.setHeader("location", "/404");
-// 			res.statusCode = 302;
-// 			res.end();
-// 			return;
-// 		}
-// 		await store.dispatch(
-// 			setAuthState({
-// 				isLogedUser: true,
-// 				accessToken: cookies.accessToken,
-// 				user: user.data,
-// 			})
-// 		);
-// 		return { props: { accessToken: isAuth, user: user.data } };
-// 	} catch (error) {
-// 		console.log(error);
-// 		res.setHeader("location", "/404");
-// 		res.statusCode = 302;
-// 		res.end();
-// 		return;
-// 	}
-// });

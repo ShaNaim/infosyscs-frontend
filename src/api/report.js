@@ -1,5 +1,5 @@
 import axios from "axios";
-import api_url from "./url";
+const api_url = process.env.NEXT_PUBLIC_API_URL;
 async function connectToReport(token, reportRef) {
 	try {
 		const response = await axios.post(
@@ -19,6 +19,7 @@ async function connectToReport(token, reportRef) {
 		if (response.status === 204) return null;
 		return response.data.data;
 	} catch (error) {
+		console.error(error);
 		throw error;
 	}
 }
@@ -35,6 +36,7 @@ async function getAllReports(token) {
 		});
 		return response.data;
 	} catch (error) {
+		console.error(error);
 		throw error;
 	}
 }
@@ -51,6 +53,7 @@ async function getAllReportsByAdmin(token) {
 		});
 		return response.data;
 	} catch (error) {
+		console.error(error);
 		throw error;
 	}
 }
@@ -67,6 +70,7 @@ async function getReportData(token, refId) {
 		});
 		return response.data;
 	} catch (error) {
+		console.error(error);
 		throw error;
 	}
 }
@@ -83,6 +87,7 @@ async function submitFeedbackForReport(feedbackData, token) {
 		});
 		return response.data;
 	} catch (error) {
+		console.error(error);
 		throw error;
 	}
 }
@@ -94,11 +99,3 @@ module.exports = {
 	submitFeedbackForReport,
 	getAllReportsByAdmin,
 };
-
-// CREATE USER 'infosyscs'@'localhost' IDENTIFIED BY 'Info12$$';
-// GRANT CREATE, ALTER, DROP, INSERT, UPDATE, INDEX, DELETE, SELECT, REFERENCES, RELOAD on *.* TO 'infosyscs'@'host' WITH GRANT OPTION;
-// GRANT ALL PRIVILEGES ON *.* TO 'infosyscs'@'localhost' WITH GRANT OPTION;
-// GRANT ALL PRIVILEGES ON *.* TO ‘user_name @ host_name’ WITH GRANT OPTION;
-// GRANT ALL PRIVILEGES ON *.* TO 'infosyscs'@'localhost' WITH GRANT OPTION;
-//Sys@@420
-// DROP USER 'infosyscs'@'host';

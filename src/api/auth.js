@@ -1,5 +1,6 @@
 import axios from "axios";
-import api_url from "./url";
+// import api_url from "./url";
+const api_url = process.env.NEXT_PUBLIC_API_URL;
 async function handleGetUserData(token) {
 	try {
 		const response = await axios.get(`${api_url}/auth/me`, {
@@ -11,7 +12,7 @@ async function handleGetUserData(token) {
 		});
 		return response.data;
 	} catch (error) {
-		console.log({ js: error });
+		console.error(error);
 		throw error;
 	}
 }
@@ -34,7 +35,6 @@ async function handleGetAdminData(token) {
 
 async function handleUserLogin(user) {
 	try {
-		console.log({ api_url, user });
 		const response = await axios.post(`${api_url}/auth/login`, user, {
 			withCredentials: true,
 			headers: {

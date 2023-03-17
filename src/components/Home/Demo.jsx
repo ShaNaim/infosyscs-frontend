@@ -26,10 +26,9 @@ export default function Demo() {
 			if (demoOne && demoTwo) selectedFile = 3;
 			const name = getFileName(selectedFile, true);
 			const file = await downloadDemo(selectedFile, true);
-			console.log({ file });
 			fileDownload(file, name);
 		} catch (error) {
-			console.log(error);
+			console.error(error);
 		}
 	};
 
@@ -48,7 +47,7 @@ export default function Demo() {
 			fileDownload(file, name);
 			setDownloadReady(false);
 		} catch (error) {
-			console.log(error);
+			console.error(error);
 		}
 	};
 	return (

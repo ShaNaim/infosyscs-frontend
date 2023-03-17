@@ -51,7 +51,6 @@ export default function AdminHome() {
 		async function getAllData() {
 			if (authState.isLogedUser && authState.accessToken) {
 				const reportList = await getAllUsers(authState.accessToken);
-				console.log("called", reportList.data);
 				setReportsList(reportList.data);
 			}
 		}

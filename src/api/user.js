@@ -1,5 +1,5 @@
 import axios from "axios";
-import api_url from "./url";
+const api_url = process.env.NEXT_PUBLIC_API_URL;
 export async function getAllUsers(token) {
 	try {
 		const response = await axios.get(`${api_url}/users`, {

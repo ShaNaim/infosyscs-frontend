@@ -1,5 +1,5 @@
 import axios from "axios";
-import api_url from "./url";
+const api_url = process.env.NEXT_PUBLIC_API_URL;
 async function uploadFileForProcessing(formData, type, name) {
 	try {
 		const response = await axios.post(
@@ -35,10 +35,9 @@ async function downloadDemo(selectedFile = 2, isReport = false) {
 				},
 			}
 		);
-		console.log({ response: response });
 		return response.data;
 	} catch (error) {
-		console.log({ error });
+		console.error(error);
 		throw error;
 	}
 }
@@ -53,7 +52,6 @@ async function checkCookie() {
 				headers: { "Access-Control-Allow-Credentials": true, "Content-Type": "application/json" },
 			}
 		);
-		console.log(response.data);
 		return response;
 	} catch (error) {
 		throw error;

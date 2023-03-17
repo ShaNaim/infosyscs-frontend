@@ -13,16 +13,11 @@ export const DownLoadPDF = ({ displayData, reportName }) => {
 	const [loading, setLoading] = React.useState(false);
 	const [text, setText] = React.useState("old boring text");
 
-	const handleAfterPrint = React.useCallback(() => {
-		console.log("`onAfterPrint` called");
-	}, []);
+	const handleAfterPrint = React.useCallback(() => {}, []);
 
-	const handleBeforePrint = React.useCallback(() => {
-		console.log("`onBeforePrint` called");
-	}, []);
+	const handleBeforePrint = React.useCallback(() => {}, []);
 
 	const handleOnBeforeGetContent = React.useCallback(() => {
-		console.log("`onBeforeGetContent` called");
 		setLoading(true);
 		setText("Loading new text...");
 

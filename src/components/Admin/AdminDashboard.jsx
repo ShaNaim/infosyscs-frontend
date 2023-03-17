@@ -6,7 +6,6 @@ import React from "react";
 import Tooltip from "@mui/material/Tooltip";
 const calculateCost = (activeList, inactiveList) => {
 	let activeCost = activeList.reduce((a, b) => {
-		console.log({ a, b });
 		return a + b.cost;
 	}, 0);
 	let inactiveCost = inactiveList.reduce((a, b) => {

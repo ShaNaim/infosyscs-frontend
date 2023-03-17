@@ -27,7 +27,7 @@ export default function EmailInput({ handleClick, isLogin, emailValue, nameValue
 				setEmailError(true);
 			}
 		} catch (error) {
-			console.log(error);
+			console.error(error);
 		}
 	};
 	return (
