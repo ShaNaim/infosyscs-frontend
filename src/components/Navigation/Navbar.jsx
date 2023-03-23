@@ -12,7 +12,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import * as React from "react";
 import Profile from "./Profile";
-
+import Contact from "./Contact";
 const pages = [
 	{ name: "About", value: "/about" },
 	{ name: "Terms", value: "/terms-and-conditions" },
@@ -102,6 +102,9 @@ function NavBar({ isLogedUser }) {
 									</Typography>
 								</MenuItem>
 							))}
+							<MenuItem onClick={handleCloseNavMenu}>
+								<Contact />
+							</MenuItem>
 						</Menu>
 					</Box>
 
@@ -140,6 +143,9 @@ function NavBar({ isLogedUser }) {
 								</Button>
 							</Link>
 						))}
+						<Button sx={{ color: "white", display: "block" }}>
+							<Contact />
+						</Button>
 					</Box>
 					{isLogedUser ? (
 						<Profile settings={settings} />

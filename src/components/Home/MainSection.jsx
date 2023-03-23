@@ -96,13 +96,13 @@ export default function MainSection() {
 						<AlertTitle sx={{ color: "tomato" }}>Warning</AlertTitle>
 						<ul>
 							<li>
-								Maximum <strong>5 files</strong> can be uploaded at a time
+								Maximum <strong>5 files</strong> can be uploaded at a time.
 							</li>
 							<li>
-								All files must be <strong>of the same Type</strong>.
+								All files must be of <strong>Same Type</strong>.
 							</li>
 							<li>
-								Files Can not exceed <strong> 500 kb </strong> in size
+								Each File Can not exceed <strong> 500 kb </strong> in size.
 							</li>
 						</ul>
 					</Alert>

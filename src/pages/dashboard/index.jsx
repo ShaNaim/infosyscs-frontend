@@ -10,7 +10,6 @@ import React from "react";
 import { setAuthState } from "@/store/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { getCookies } from "cookies-next";
-import { wrapper } from "@/store/store";
 export default function index({ googleAccessToken }) {
 	const [loading, isLoading] = React.useState(true);
 	const router = useRouter();
@@ -22,7 +21,7 @@ export default function index({ googleAccessToken }) {
 		async function handleDashboard(token) {
 			try {
 				if (!token) {
-					// return router.push("/register");
+					return router.push("/register");
 				} else {
 					isLoading(false);
 					const userData = await handleGetUserData(token);
@@ -73,9 +72,10 @@ export default function index({ googleAccessToken }) {
 	);
 }
 
-export const getServerSideProps = wrapper.getServerSideProps((store) => async ({ req, res }) => {
+export const getServerSideProps = async ({ req, res }) => {
 	try {
 		const accessCookies = getCookies({ req, res });
+		console.log({ accessCookies });
 		if (!accessCookies.accessToken) {
 			res.setHeader("location", "/login");
 			res.statusCode = 302;
@@ -90,4 +90,4 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ({
 		res.end();
 		return;
 	}
-});
+};
