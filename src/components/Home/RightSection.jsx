@@ -2,7 +2,8 @@ import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import React from "react";
-
+import Paper from "@mui/material/Paper";
+import YoutubeEmbed from "./YoutubeEmbedded";
 export default function RightSection() {
 	return (
 		<>
@@ -12,7 +13,7 @@ export default function RightSection() {
 				justifyContent="center"
 				alignItems="center"
 			>
-				<Box sx={{ p: 3, width: "100%" }}>
+				<Box sx={{ p: 3, width: "100%", bgcolor: "#474747", borderRadius: "12px" }}>
 					<Typography
 						variant="h6"
 						component="h6"
@@ -183,6 +184,22 @@ export default function RightSection() {
 						</Typography>
 					</ul>
 				</Box>
+				<Paper
+					elevation={4}
+					sx={{
+						mt: 1,
+						p: 1,
+						bgcolor: "#474747",
+						color: "white",
+						width: "100%",
+						borderRadius: "12px",
+					}}
+				>
+					{/* <YoutubeEmbed embedId="yRMM4eZad6Q" /> */}
+					<Box sx={{ height: "280px", width: "100%" }}>
+						<YoutubeEmbed embedId="yRMM4eZad6Q" />
+					</Box>
+				</Paper>
 			</Stack>
 		</>
 	);

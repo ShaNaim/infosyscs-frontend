@@ -36,20 +36,17 @@ export default function Home() {
 							</Stack>
 						</Box>
 						<Box sx={{ flex: 1, mr: { xs: 0, md: 2 }, width: "100%" }}>
-							<Paper
+							<Box
 								elevation={4}
 								sx={{
 									mr: { md: 4, sx: 0 },
 									mt: 1,
-									p: 2,
-									bgcolor: "#474747",
 									color: "white",
 									width: "100%",
-									borderRadius: "12px",
 								}}
 							>
 								<RightSection />
-							</Paper>
+							</Box>
 						</Box>
 					</Stack>
 				</Box>

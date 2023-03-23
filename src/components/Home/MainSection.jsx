@@ -5,7 +5,8 @@ import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import React from "react";
-
+import Alert from "@mui/material/Alert";
+import AlertTitle from "@mui/material/AlertTitle";
 export default function MainSection() {
 	return (
 		<>
@@ -84,6 +85,27 @@ export default function MainSection() {
 					>
 						Thematic Analysis
 					</Typography>
+					<Alert
+						sx={{
+							width: { xs: "95%", md: "60%", lg: "50%" },
+
+							color: "tomato",
+						}}
+						severity="warning"
+					>
+						<AlertTitle sx={{ color: "tomato" }}>Warning</AlertTitle>
+						<ul>
+							<li>
+								Maximum <strong>5 files</strong> can be uploaded at a time
+							</li>
+							<li>
+								All files must be <strong>of the same Type</strong>.
+							</li>
+							<li>
+								Files Can not exceed <strong> 500 kb </strong> in size
+							</li>
+						</ul>
+					</Alert>
 					<FileUpload />
 				</Stack>
 			</Paper>

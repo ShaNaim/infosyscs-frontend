@@ -1,6 +1,6 @@
 import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
 import Paper from "@mui/material/Paper";
+import Stack from "@mui/material/Stack";
 import React from "react";
 import YoutubeEmbed from "./YoutubeEmbedded";
 export default function LeftSections() {
@@ -14,7 +14,7 @@ export default function LeftSections() {
 					alignItems="center"
 					spacing={4}
 				>
-					<Paper
+					{/* <Paper
 						elevation={4}
 						sx={{
 							mt: 1,
@@ -25,11 +25,11 @@ export default function LeftSections() {
 							borderRadius: "12px",
 						}}
 					>
-						{/* <YoutubeEmbed embedId="yRMM4eZad6Q" /> */}
+					
 						<Box sx={{ height: "280px", width: "100%" }}>
 							<YoutubeEmbed embedId="yRMM4eZad6Q" />
 						</Box>
-					</Paper>
+					</Paper> */}
 					<Paper
 						elevation={4}
 						sx={{

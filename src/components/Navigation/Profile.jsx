@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { selectAuthState } from "@/store/authSlice";
 import { useSelector } from "react-redux";
 import { setAuthState } from "@/store/authSlice";
+import { handleUserLogout } from "@/api/auth";
 
 function stringToColor(string) {
 	let hash = 0;
@@ -55,7 +56,10 @@ export default function Profile({ settings }) {
 		setAnchorElUser(null);
 		router.push("/dashboard");
 	};
-	const handleLogout = () => {
+
+	const handleLogout = async () => {
+		console.log("out");
+		await handleUserLogout(authState.accessToken);
 		dispatch(
 			setAuthState({
 				isLogedUser: false,

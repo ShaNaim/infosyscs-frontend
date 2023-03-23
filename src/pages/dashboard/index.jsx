@@ -77,7 +77,7 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ({
 	try {
 		const accessCookies = getCookies({ req, res });
 		if (!accessCookies.accessToken) {
-			res.setHeader("location", "/");
+			res.setHeader("location", "/login");
 			res.statusCode = 302;
 			res.end();
 			return;
