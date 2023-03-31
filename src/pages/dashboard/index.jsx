@@ -1,27 +1,51 @@
-import { connectToReport } from "@/api/report";
 import { handleGetUserData } from "@/api/auth";
 import Home from "@/components/Dashboard/Home";
 import HeadUI from "@/components/UI/HeadUI";
 import Loading from "@/components/UI/Loading";
-import { selectAuthState } from "@/store/authSlice";
-import { selectReportState, setReportState } from "@/store/reportSlice";
+
 import { useRouter } from "next/router";
 import React from "react";
 import { setAuthState } from "@/store/authSlice";
+import { selectAuthState } from "@/store/authSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { getCookies } from "cookies-next";
+
+import { parse } from "cookie";
+
+export async function getServerSideProps({ req, res, query }) {
+	try {
+		const { token } = query;
+		if (token) {
+			return { props: { googleAccessToken: token } };
+		}
+		const cookies = parse(req.headers.cookie || "");
+		if (!cookies.accessToken) {
+			res.setHeader("location", "/login");
+			res.statusCode = 302;
+			res.end();
+			return { props: { googleAccessToken: null } };
+		}
+		return { props: { googleAccessToken: cookies.accessToken } };
+	} catch (error) {
+		console.log({ error });
+		console.error({ error: error.response?.data });
+		res.setHeader("location", "/login");
+		res.statusCode = 302;
+		res.end();
+		return { props: { googleAccessToken: null } };
+	}
+}
+
 export default function index({ googleAccessToken }) {
 	const [loading, isLoading] = React.useState(true);
 	const router = useRouter();
 	const dispatch = useDispatch();
 	const authState = useSelector(selectAuthState);
-	const reportState = useSelector(selectReportState);
 
 	React.useEffect(() => {
 		async function handleDashboard(token) {
 			try {
 				if (!token) {
-					return router.push("/register");
+					return router.push("/login");
 				} else {
 					isLoading(false);
 					const userData = await handleGetUserData(token);
@@ -33,16 +57,7 @@ export default function index({ googleAccessToken }) {
 							user: userData.data,
 						})
 					);
-					if (reportState.reportRef) {
-						await connectToReport(token, reportState.reportRef);
-						dispatch(
-							setReportState({
-								hasDisconnectedReport: false,
-								reportRef: null,
-								reportId: null,
-							})
-						);
-					}
+					router.push("/dashboard");
 				}
 			} catch (error) {
 				console.error({ error: error });
@@ -54,7 +69,7 @@ export default function index({ googleAccessToken }) {
 		} else {
 			if (googleAccessToken) handleDashboard(googleAccessToken);
 		}
-	}, [reportState, googleAccessToken]);
+	}, [googleAccessToken]);
 
 	return (
 		<>
@@ -71,23 +86,3 @@ export default function index({ googleAccessToken }) {
 		</>
 	);
 }
-
-export const getServerSideProps = async ({ req, res }) => {
-	try {
-		const accessCookies = getCookies({ req, res });
-		console.log({ accessCookies });
-		if (!accessCookies.accessToken) {
-			res.setHeader("location", "/login");
-			res.statusCode = 302;
-			res.end();
-			return;
-		}
-		return { props: { googleAccessToken: accessCookies.accessToken } };
-	} catch (error) {
-		console.error({ error: error.response?.data });
-		res.setHeader("location", "/login");
-		res.statusCode = 302;
-		res.end();
-		return;
-	}
-};

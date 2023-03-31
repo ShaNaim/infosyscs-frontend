@@ -10,8 +10,6 @@ import MenuItem from "@mui/material/MenuItem";
 import { useDispatch } from "react-redux";
 import { selectAuthState } from "@/store/authSlice";
 import { useSelector } from "react-redux";
-import { setAuthState } from "@/store/authSlice";
-import { handleUserLogout } from "@/api/auth";
 
 function stringToColor(string) {
 	let hash = 0;
@@ -58,16 +56,7 @@ export default function Profile({ settings }) {
 	};
 
 	const handleLogout = async () => {
-		console.log("out");
-		await handleUserLogout(authState.accessToken);
-		dispatch(
-			setAuthState({
-				isLogedUser: false,
-				accessToken: null,
-				user: null,
-			})
-		);
-		router.push("/login");
+		router.push("/logout");
 	};
 
 	return (

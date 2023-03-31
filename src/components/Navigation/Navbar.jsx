@@ -13,6 +13,7 @@ import { useRouter } from "next/router";
 import * as React from "react";
 import Profile from "./Profile";
 import Contact from "./Contact";
+
 const pages = [
 	{ name: "About", value: "/about" },
 	{ name: "Terms", value: "/terms-and-conditions" },
@@ -148,7 +149,7 @@ function NavBar({ isLogedUser }) {
 						</Button>
 					</Box>
 					{isLogedUser ? (
-						<Profile settings={settings} />
+						<Profile user={settings} />
 					) : (
 						<Button
 							variant="outlined"

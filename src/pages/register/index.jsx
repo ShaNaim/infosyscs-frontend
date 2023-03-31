@@ -2,8 +2,19 @@ import React from "react";
 import Box from "@mui/material/Box";
 import Auth from "@/components/Auth/Auth";
 import HeadUI from "@/components/UI/HeadUI";
+import { selectAuthState } from "@/store/authSlice";
+import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
 
-export default function index() {
+export default function index({ accessToken }) {
+	const router = useRouter();
+	const authState = useSelector(selectAuthState);
+
+	React.useEffect(() => {
+		if (authState.accessToken) {
+			router.push("/dashboard");
+		}
+	}, [authState]);
 	return (
 		<>
 			<HeadUI pageTitle={"Register"} />
